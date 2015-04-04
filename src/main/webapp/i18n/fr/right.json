@@ -1,0 +1,20 @@
+{
+    "adminApp": {
+        "right" : {
+            "home": {
+                "title": "Rights",
+                "createLabel": "Créer un nouveau Right",
+                "createOrEditLabel": "Créer ou éditer un Right"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Right {{ id }} ?"
+            },
+            "detail": {
+                "title": "Right"
+            },
+            "name": "Name",
+            "description": "Description"
+        }
+    }
+}
+

@@ -1,0 +1,19 @@
+{
+    "adminApp": {
+        "right" : {
+            "home": {
+                "title": "Rights",
+                "createLabel": "Create a new Right",
+                "createOrEditLabel": "Create or edit a Right"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Right {{ id }}?"
+            },
+            "detail": {
+                "title": "Right"
+            },
+            "name": "Name",
+            "description": "Description"
+        }
+    }
+}

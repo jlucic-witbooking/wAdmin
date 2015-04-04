@@ -1,0 +1,55 @@
+{
+    "relationships": [
+        {
+            "relationshipId": 1,
+            "relationshipName": "user",
+            "relationshipNameCapitalized": "User",
+            "relationshipFieldName": "user",
+            "otherEntityName": "user",
+            "relationshipType": "many-to-one",
+            "otherEntityNameCapitalized": "User",
+            "otherEntityField": "login"
+        },
+        {
+            "relationshipId": 2,
+            "relationshipName": "userGroup",
+            "relationshipNameCapitalized": "UserGroup",
+            "relationshipFieldName": "userGroup",
+            "otherEntityName": "userGroup",
+            "relationshipType": "many-to-one",
+            "otherEntityNameCapitalized": "UserGroup",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipId": 3,
+            "relationshipName": "authority",
+            "relationshipNameCapitalized": "Authority",
+            "relationshipFieldName": "authority",
+            "otherEntityName": "authority",
+            "relationshipType": "many-to-one",
+            "otherEntityNameCapitalized": "Authority",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipId": 4,
+            "relationshipName": "bookingEngine",
+            "relationshipNameCapitalized": "BookingEngine",
+            "relationshipFieldName": "bookingEngine",
+            "otherEntityName": "bookingEngine",
+            "relationshipType": "many-to-one",
+            "otherEntityNameCapitalized": "BookingEngine",
+            "otherEntityField": "ticker"
+        }
+    ],
+    "fields": [],
+    "fieldsContainOwnerManyToMany": false,
+    "fieldsContainOneToMany": false,
+    "fieldsContainLocalDate": false,
+    "fieldsContainCustomTime": false,
+    "fieldsContainBigDecimal": false,
+    "fieldsContainDateTime": false,
+    "fieldsContainDate": false,
+    "changelogDate": "20150404093355",
+    "pagination": "infinite-scroll",
+    "validation": false
+}

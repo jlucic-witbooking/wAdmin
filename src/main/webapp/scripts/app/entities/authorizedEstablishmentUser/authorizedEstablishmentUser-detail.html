@@ -1,0 +1,54 @@
+
+<div>
+    <h2><span translate="adminApp.authorizedEstablishmentUser.detail.title">AuthorizedEstablishmentUser</span> {{authorizedEstablishmentUser.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="entity.detail.field">Field</th>
+                    <th translate="entity.detail.value">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <span translate="adminApp.authorizedEstablishmentUser.user">user</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{authorizedEstablishmentUser.user.login}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="adminApp.authorizedEstablishmentUser.userGroup">userGroup</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{authorizedEstablishmentUser.userGroup.name}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="adminApp.authorizedEstablishmentUser.authority">authority</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{authorizedEstablishmentUser.authority.name}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="adminApp.authorizedEstablishmentUser.bookingEngine">bookingEngine</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{authorizedEstablishmentUser.bookingEngine.ticker}}" readonly>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            ui-sref="authorizedEstablishmentUser"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

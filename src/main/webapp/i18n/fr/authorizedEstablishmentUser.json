@@ -1,0 +1,22 @@
+{
+    "adminApp": {
+        "authorizedEstablishmentUser" : {
+            "home": {
+                "title": "AuthorizedEstablishmentUsers",
+                "createLabel": "Créer un nouveau AuthorizedEstablishmentUser",
+                "createOrEditLabel": "Créer ou éditer un AuthorizedEstablishmentUser"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le AuthorizedEstablishmentUser {{ id }} ?"
+            },
+            "detail": {
+                "title": "AuthorizedEstablishmentUser"
+            },
+            "user": "user",
+            "userGroup": "userGroup",
+            "authority": "authority",
+            "bookingEngine": "bookingEngine"
+        }
+    }
+}
+

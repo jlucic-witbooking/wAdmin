@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <!--
+        Added the entity AuthorizedEstablishmentUser.
+    -->
+    <changeSet id="20150404093355" author="jhipster">
+        <createTable tableName="T_AUTHORIZEDESTABLISHMENTUSER">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint"/>
+            <column name="usergroup_id" type="bigint"/>
+            <column name="authority_id" type="bigint"/>
+            <column name="bookingengine_id" type="bigint"/>
+        </createTable>
+        
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="T_AUTHORIZEDESTABLISHMENTUSER"
+                                 constraintName="fk_authorizedestablishmentuser_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="T_USER"/>
+
+        <addForeignKeyConstraint baseColumnNames="usergroup_id"
+                                 baseTableName="T_AUTHORIZEDESTABLISHMENTUSER"
+                                 constraintName="fk_authorizedestablishmentuser_usergroup_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="T_USERGROUP"/>
+
+        <addForeignKeyConstraint baseColumnNames="authority_id"
+                                 baseTableName="T_AUTHORIZEDESTABLISHMENTUSER"
+                                 constraintName="fk_authorizedestablishmentuser_authority_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="T_AUTHORITY"/>
+
+        <addForeignKeyConstraint baseColumnNames="bookingengine_id"
+                                 baseTableName="T_AUTHORIZEDESTABLISHMENTUSER"
+                                 constraintName="fk_authorizedestablishmentuser_bookingengine_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="T_BOOKINGENGINE"/>
+
+    </changeSet>
+</databaseChangeLog>
