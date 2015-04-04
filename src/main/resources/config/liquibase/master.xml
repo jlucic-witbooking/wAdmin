@@ -9,5 +9,6 @@
     <include file="classpath:config/liquibase/changelog/20150404091338_added_entity_BookingEngine.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20150404093355_added_entity_AuthorizedEstablishmentUser.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20150404101617_added_entity_Right.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20150404102047_added_entity_AuthorityHasRight.xml" relativeToChangelogFile="false"/>
     <!-- JHipster will add liquibase changelogs here -->
 </databaseChangeLog>
