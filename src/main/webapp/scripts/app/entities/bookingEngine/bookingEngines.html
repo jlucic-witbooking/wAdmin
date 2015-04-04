@@ -1,0 +1,138 @@
+<div>
+
+    <h2 translate="adminApp.bookingEngine.home.title">BookingEngine</h2>
+
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveBookingEngineModal" ng-click="clear()">
+        <span class="glyphicon glyphicon-flash"></span> <span translate="adminApp.bookingEngine.home.createLabel">Create a new BookingEngine</span>
+    </button>
+    <div class="modal fade" id="saveBookingEngineModal" tabindex="-1" role="dialog" aria-labelledby="myBookingEngineLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="editForm" role="form" novalidate ng-submit="create()" show-validation>
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" id="myBookingEngineLabel" translate="adminApp.bookingEngine.home.createOrEditLabel">Create or edit a BookingEngine</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" class="form-control" name="id"
+                                   ng-model="bookingEngine.id" readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label translate="adminApp.bookingEngine.ticker">Ticker</label>
+                            <input type="text" class="form-control" name="ticker"
+                                   ng-model="bookingEngine.ticker" required ng-maxlength="31" ng-pattern="/^[a-zA-Z0-9]*$/">
+
+                            <div ng-show="editForm.ticker.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.ticker.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.ticker.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="31">
+                                    This field cannot be longer than 31 characters.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.ticker.$error.pattern" translate="entity.validation.pattern" translate-value-pattern="^[a-zA-Z0-9]*$">
+                                    This field should follow pattern "^[a-zA-Z0-9]*$".
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label translate="adminApp.bookingEngine.name">Name</label>
+                            <input type="text" class="form-control" name="name"
+                                   ng-model="bookingEngine.name" required ng-maxlength="255">
+
+                            <div ng-show="editForm.name.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.name.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.name.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="255">
+                                    This field cannot be longer than 255 characters.
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="editForm.$invalid" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteBookingEngineConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(bookingEngine.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="adminApp.bookingEngine.delete.question" translate-values="{id: '{{bookingEngine.id}}'}">Are you sure you want to delete this BookingEngine?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th translate="adminApp.bookingEngine.ticker">Ticker</th>
+                    <th translate="adminApp.bookingEngine.name">Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
+                <tr ng-repeat="bookingEngine in bookingEngines">
+                    <td><a ui-sref="bookingEngineDetail({id:bookingEngine.id})">{{bookingEngine.id}}</a></td>
+                    <td>{{bookingEngine.ticker}}</td>
+                    <td>{{bookingEngine.name}}</td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="bookingEngineDetail({id:bookingEngine.id})"
+                                class="btn btn-info">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="update(bookingEngine.id)"
+                                class="btn btn-primary">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(bookingEngine.id)"
+                                class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

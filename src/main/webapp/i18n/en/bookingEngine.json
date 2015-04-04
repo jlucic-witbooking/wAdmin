@@ -1,0 +1,19 @@
+{
+    "adminApp": {
+        "bookingEngine" : {
+            "home": {
+                "title": "BookingEngines",
+                "createLabel": "Create a new BookingEngine",
+                "createOrEditLabel": "Create or edit a BookingEngine"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete BookingEngine {{ id }}?"
+            },
+            "detail": {
+                "title": "BookingEngine"
+            },
+            "ticker": "Ticker",
+            "name": "Name"
+        }
+    }
+}

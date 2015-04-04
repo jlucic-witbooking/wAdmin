@@ -7,6 +7,7 @@
             "entities": {
                 "main": "Entities",
                 "userGroup": "UserGroup",
+                "bookingEngine": "BookingEngine",
                 "additionalEntity": "JHipster will add addtional entities"
             },
             "account": {
