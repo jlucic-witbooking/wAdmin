@@ -1,0 +1,20 @@
+{
+    "adminApp": {
+        "userGroup" : {
+            "home": {
+                "title": "UserGroups",
+                "createLabel": "Créer un nouveau UserGroup",
+                "createOrEditLabel": "Créer ou éditer un UserGroup"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le UserGroup {{ id }} ?"
+            },
+            "detail": {
+                "title": "UserGroup"
+            },
+            "name": "Name",
+            "user": "user"
+        }
+    }
+}
+

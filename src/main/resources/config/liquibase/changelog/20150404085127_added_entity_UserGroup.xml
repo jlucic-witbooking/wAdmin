@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <!--
+        Added the entity UserGroup.
+    -->
+    <changeSet id="20150404085127" author="jhipster">
+        <createTable tableName="T_USERGROUP">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(63)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+        
+        <createTable tableName="T_USERGROUP_USER">
+            <column name="users_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="userGroups_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="userGroups_id, users_id" tableName="T_USERGROUP_USER"/>
+
+        <addForeignKeyConstraint baseColumnNames="userGroups_id"
+                                 baseTableName="T_USERGROUP_USER"
+                                 constraintName="fk_usergroup_user_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="T_USERGROUP"/>
+
+        <addForeignKeyConstraint baseColumnNames="users_id"
+                                 baseTableName="T_USERGROUP_USER"
+                                 constraintName="fk_user_user_usergroup_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="T_USER"/>
+        
+    </changeSet>
+</databaseChangeLog>
