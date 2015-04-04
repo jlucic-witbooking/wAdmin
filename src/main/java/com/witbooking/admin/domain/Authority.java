@@ -1,14 +1,15 @@
 package com.witbooking.admin.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Column;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * An authority (a security role) used by Spring Security.
@@ -24,12 +25,29 @@ public class Authority implements Serializable {
     @Column(length = 50)
     private String name;
 
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+        name = "T_AUTHORITY_RIGHT",
+        joinColumns = {@JoinColumn(name = "authority_id", referencedColumnName = "id")},
+        inverseJoinColumns = {@JoinColumn(name = "right_id", referencedColumnName = "id")})
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Right> rights = new HashSet<>();
+
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Right> getRights() {
+        return rights;
+    }
+
+    public void setRights(Set<Right> rights) {
+        this.rights = rights;
     }
 
     @Override

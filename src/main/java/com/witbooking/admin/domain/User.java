@@ -61,6 +61,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "activation_key", length = 20)
     private String activationKey;
 
+/*
     @JsonIgnore
     @ManyToMany
     @JoinTable(
@@ -69,6 +70,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
             inverseJoinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Authority> authorities = new HashSet<>();
+*/
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<AuthorizedEstablishmentUser> authorizedEstablishmentUsers = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
@@ -147,12 +154,12 @@ public class User extends AbstractAuditingEntity implements Serializable {
         this.langKey = langKey;
     }
 
-    public Set<Authority> getAuthorities() {
-        return authorities;
+    public Set<AuthorizedEstablishmentUser> getAuthorizedEstablishmentUsers() {
+        return authorizedEstablishmentUsers;
     }
 
-    public void setAuthorities(Set<Authority> authorities) {
-        this.authorities = authorities;
+    public void setAuthorizedEstablishmentUsers(Set<AuthorizedEstablishmentUser> authorizedEstablishmentUsers) {
+        this.authorizedEstablishmentUsers = authorizedEstablishmentUsers;
     }
 
     public Set<PersistentToken> getPersistentTokens() {
@@ -189,14 +196,14 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", activated='" + activated + '\'' +
-                ", langKey='" + langKey + '\'' +
-                ", activationKey='" + activationKey + '\'' +
-                "}";
+            "login='" + login + '\'' +
+            ", password='" + password + '\'' +
+            ", firstName='" + firstName + '\'' +
+            ", lastName='" + lastName + '\'' +
+            ", email='" + email + '\'' +
+            ", activated='" + activated + '\'' +
+            ", langKey='" + langKey + '\'' +
+            ", activationKey='" + activationKey + '\'' +
+            "}";
     }
 }
