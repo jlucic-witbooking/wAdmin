@@ -118,11 +118,6 @@
                   separator=";"
                   tableName="T_AUTHORITY"/>
 
-        <loadData encoding="UTF-8"
-                  file="config/liquibase/users_authorities.csv"
-                  separator=";"
-                  tableName="T_USER_AUTHORITY"/>
-
         <createTable tableName="T_PERSISTENT_AUDIT_EVENT">
             <column name="event_id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -164,5 +159,5 @@
                                  referencedColumnNames="event_id"
                                  referencedTableName="T_PERSISTENT_AUDIT_EVENT"/>
     </changeSet>
-    
+
 </databaseChangeLog>

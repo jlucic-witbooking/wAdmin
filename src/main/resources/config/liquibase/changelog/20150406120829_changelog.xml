@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.3.xsd http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+   <changeSet author="mongoose (generated)" id="1428314915333-1">
+      <createTable tableName="T_AUTHORITY_RIGHT">
+         <column name="authority_name" type="VARCHAR(50)">
+            <constraints nullable="false"/>
+         </column>
+         <column name="right_id" type="BIGINT">
+            <constraints nullable="false"/>
+         </column>
+      </createTable>
+   </changeSet>
+   <changeSet author="mongoose (generated)" id="1428314915333-4">
+      <addPrimaryKey columnNames="authority_name, right_id" tableName="T_AUTHORITY_RIGHT"/>
+   </changeSet>
+   <changeSet author="mongoose (generated)" id="1428314915333-7">
+      <addForeignKeyConstraint baseColumnNames="right_id"
+                               baseTableName="T_AUTHORITY_RIGHT"
+                               constraintName="FK_af45q8ptgv6cd6ardnppnxrcm"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="T_RIGHT"/>
+   </changeSet>
+   <changeSet author="mongoose (generated)" id="1428314915333-8">
+      <addForeignKeyConstraint baseColumnNames="authority_name"
+                               baseTableName="T_AUTHORITY_RIGHT"
+                               constraintName="FK_m2f0eo2cx0wnklvlbpj0l3lu4"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="name"
+                               referencedTableName="T_AUTHORITY"/>
+   </changeSet>
+   <changeSet author="mongoose (generated)" id="1428314915333-9">
+      <dropForeignKeyConstraint baseTableName="T_USER_AUTHORITY" constraintName="fk_authority_name"/>
+   </changeSet>
+   <changeSet author="mongoose (generated)" id="1428314915333-10">
+      <dropForeignKeyConstraint baseTableName="T_USER_AUTHORITY" constraintName="fk_user_id"/>
+   </changeSet>
+   <changeSet author="mongoose (generated)" id="1428314915333-11">
+      <dropTable tableName="T_USER_AUTHORITY"/>
+   </changeSet>
+</databaseChangeLog>

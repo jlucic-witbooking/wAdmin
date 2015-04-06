@@ -7,10 +7,10 @@ spring:
     datasource:
         dataSourceClassName: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
         url: jdbc:mysql://localhost:3306/admin
-        databaseName: 
-        serverName: 
+        databaseName: admin
+        serverName:
         username: root
-        password: 
+        password: admin
         cachePrepStmts: true
         prepStmtCacheSize: 250
         prepStmtCacheSqlLimit: 2048

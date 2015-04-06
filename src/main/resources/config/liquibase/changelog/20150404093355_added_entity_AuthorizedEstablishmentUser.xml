@@ -17,10 +17,10 @@
             </column>
             <column name="user_id" type="bigint"/>
             <column name="usergroup_id" type="bigint"/>
-            <column name="authority_id" type="bigint"/>
+            <column name="authority_name" type="varchar(50)"/>
             <column name="bookingengine_id" type="bigint"/>
         </createTable>
-        
+
         <addForeignKeyConstraint baseColumnNames="user_id"
                                  baseTableName="T_AUTHORIZEDESTABLISHMENTUSER"
                                  constraintName="fk_authorizedestablishmentuser_user_id"
@@ -33,10 +33,10 @@
                                  referencedColumnNames="id"
                                  referencedTableName="T_USERGROUP"/>
 
-        <addForeignKeyConstraint baseColumnNames="authority_id"
+        <addForeignKeyConstraint baseColumnNames="authority_name"
                                  baseTableName="T_AUTHORIZEDESTABLISHMENTUSER"
-                                 constraintName="fk_authorizedestablishmentuser_authority_id"
-                                 referencedColumnNames="id"
+                                 constraintName="fk_authorizedestablishmentuser_authority_name"
+                                 referencedColumnNames="name"
                                  referencedTableName="T_AUTHORITY"/>
 
         <addForeignKeyConstraint baseColumnNames="bookingengine_id"

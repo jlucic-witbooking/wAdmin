@@ -6,6 +6,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class UserDTO {
 
@@ -31,13 +33,15 @@ public class UserDTO {
     @Size(min = 2, max = 5)
     private String langKey;
 
-    private List<String> roles;
+    private Map<String,Set<String>> roles;
+
+    private Map<String,Set<String>> rights;
 
     public UserDTO() {
     }
 
     public UserDTO(String login, String password, String firstName, String lastName, String email, String langKey,
-                   List<String> roles) {
+                   Map<String,Set<String>> roles,Map<String,Set<String>> rights) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
@@ -45,6 +49,7 @@ public class UserDTO {
         this.email = email;
         this.langKey = langKey;
         this.roles = roles;
+        this.rights = rights;
     }
 
     public String getPassword() {
@@ -71,8 +76,12 @@ public class UserDTO {
         return langKey;
     }
 
-    public List<String> getRoles() {
+    public Map<String,Set<String>> getRoles() {
         return roles;
+    }
+
+    public Map<String, Set<String>> getRights() {
+        return rights;
     }
 
     @Override

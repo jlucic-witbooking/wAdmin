@@ -12,12 +12,18 @@ angular.module('adminApp')
             isAuthenticated: function () {
                 return _authenticated;
             },
-            isInRole: function (role) {
+            isInRole: function (role,establishment) {
                 if (!_authenticated || !_identity || !_identity.roles) {
                     return false;
                 }
+                var userRoles=[];
+                if(!establishment){
+                    userRoles=_identity.roles["NO_DOMAIN_OBJECT"];
+                }else{
+                    userRoles=_identity.roles[establishment];
+                }
 
-                return _identity.roles.indexOf(role) !== -1;
+                return userRoles.indexOf(role) !== -1;
             },
             isInAnyRole: function (roles) {
                 if (!_authenticated || !_identity.roles) {

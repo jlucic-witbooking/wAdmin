@@ -29,6 +29,7 @@ public class AuthorizedEstablishmentUser implements Serializable {
     private UserGroup userGroup;
 
     @ManyToOne
+    @JoinColumn(name = "authority_name", referencedColumnName = "name")
     private Authority authority;
 
     @ManyToOne

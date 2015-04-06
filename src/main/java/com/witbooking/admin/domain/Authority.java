@@ -3,6 +3,8 @@ package com.witbooking.admin.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -27,9 +29,10 @@ public class Authority implements Serializable {
 
     @JsonIgnore
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(
         name = "T_AUTHORITY_RIGHT",
-        joinColumns = {@JoinColumn(name = "authority_id", referencedColumnName = "id")},
+        joinColumns = {@JoinColumn(name = "authority_name", referencedColumnName = "name")},
         inverseJoinColumns = {@JoinColumn(name = "right_id", referencedColumnName = "id")})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Right> rights = new HashSet<>();
@@ -48,6 +51,15 @@ public class Authority implements Serializable {
 
     public void setRights(Set<Right> rights) {
         this.rights = rights;
+    }
+
+    public boolean hasRight(Right testRight){
+        for (Right right : rights){
+            if(testRight.getName().equals(right.getName())){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

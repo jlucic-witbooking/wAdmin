@@ -1,11 +1,12 @@
 package com.witbooking.admin.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
-import com.witbooking.admin.domain.Authority;
-import com.witbooking.admin.domain.PersistentToken;
-import com.witbooking.admin.domain.User;
+import com.witbooking.admin.domain.*;
 import com.witbooking.admin.repository.PersistentTokenRepository;
 import com.witbooking.admin.repository.UserRepository;
+import com.witbooking.admin.security.AuthoritiesConstants;
+import com.witbooking.admin.security.EstablishmentGrantedAuthority;
+import com.witbooking.admin.security.RightGrantedAuthority;
 import com.witbooking.admin.security.SecurityUtils;
 import com.witbooking.admin.service.MailService;
 import com.witbooking.admin.service.UserService;
@@ -113,10 +114,44 @@ public class AccountResource {
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        List<String> roles = new ArrayList<>();
-        for (Authority authority : user.getAuthorities()) {
+        Map<String,Set<String>> roles = new HashMap<>();
+        Map<String,Set<String>> rights = new HashMap<>();
+        //TODO:REPLACE THIS METHOD
+
+/*
+        for (Authority authority : user.getAuthorizedEstablishmentUsers()) {
             roles.add(authority.getName());
         }
+*/
+
+        for (AuthorizedEstablishmentUser authorizedEstablishmentUser : user.getAuthorizedEstablishmentUsers()) {
+            String key = null;
+
+            if(authorizedEstablishmentUser.getBookingEngine() == null){
+                key = AuthoritiesConstants.NO_DOMAIN_OBJECT;
+            }else{
+                key = authorizedEstablishmentUser.getBookingEngine().getName();
+            }
+
+            if (!roles.containsKey(key)){
+                roles.put(key,new HashSet<String>());
+            }
+            if (!rights.containsKey(key)){
+                rights.put(key,new HashSet<String>());
+            }
+
+            Authority role = authorizedEstablishmentUser.getAuthority();
+
+            roles.get(key).add(role.getName());
+
+            Set<String> userRights = rights.get(key);
+
+            for(Right right : role.getRights()) {
+                userRights.add(right.getName());
+            }
+
+        }
+
         return new ResponseEntity<>(
             new UserDTO(
                 user.getLogin(),
@@ -125,7 +160,8 @@ public class AccountResource {
                 user.getLastName(),
                 user.getEmail(),
                 user.getLangKey(),
-                roles),
+                roles,
+                rights),
             HttpStatus.OK);
     }
 

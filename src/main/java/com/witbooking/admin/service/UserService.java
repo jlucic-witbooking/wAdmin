@@ -74,7 +74,8 @@ public class UserService {
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         authorities.add(authority);
-        newUser.setAuthorities(authorities);
+        //TODO: REPLACE THIS METHOD [REPLACED]
+        //newUser.setAuthorities(authorities);
         userRepository.save(newUser);
         log.debug("Created Information for User: {}", newUser);
         return newUser;
@@ -100,7 +101,8 @@ public class UserService {
     @Transactional(readOnly = true)
     public User getUserWithAuthorities() {
         User currentUser = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
-        currentUser.getAuthorities().size(); // eagerly load the association
+        //TODO: REPLACE THIS METHOD [REPLACED]
+        currentUser.getAuthorizedEstablishmentUsers().size(); // eagerly load the association
         return currentUser;
     }
 

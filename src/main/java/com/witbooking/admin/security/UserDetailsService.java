@@ -1,6 +1,7 @@
 package com.witbooking.admin.security;
 
 import com.witbooking.admin.domain.Authority;
+import com.witbooking.admin.domain.AuthorizedEstablishmentUser;
 import com.witbooking.admin.domain.User;
 import com.witbooking.admin.repository.UserRepository;
 import org.slf4j.Logger;
@@ -40,10 +41,19 @@ public class UserDetailsService implements org.springframework.security.core.use
         }
 
         Collection<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        for (Authority authority : userFromDatabase.getAuthorities()) {
-            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(authority.getName());
-            grantedAuthorities.add(grantedAuthority);
+        for (AuthorizedEstablishmentUser authorizedEstablishmentUser : userFromDatabase.getAuthorizedEstablishmentUsers()) {
+            if(authorizedEstablishmentUser.getBookingEngine() == null){
+                RightGrantedAuthority grantedAuthority = new RightGrantedAuthority();
+                grantedAuthority.setAuthority(authorizedEstablishmentUser.getAuthority());
+                grantedAuthorities.add(grantedAuthority);
+            }else{
+                EstablishmentGrantedAuthority grantedAuthority = new EstablishmentGrantedAuthority();
+                grantedAuthority.setDomainObjectIdentifier(authorizedEstablishmentUser.getBookingEngine().getName());
+                grantedAuthority.setAuthority(authorizedEstablishmentUser.getAuthority());
+                grantedAuthorities.add(grantedAuthority);
+            }
         }
+
         return new org.springframework.security.core.userdetails.User(lowercaseLogin,
             userFromDatabase.getPassword(), grantedAuthorities);
     }
