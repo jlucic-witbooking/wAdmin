@@ -13,25 +13,35 @@
         <!-- build:css assets/styles/vendor.css -->
         <!-- bower:css -->
         <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
+        <link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.css" />
+        <link rel="stylesheet" href="bower_components/simple-line-icons/css/simple-line-icons.css" />
         <!-- endbower -->
         <!-- endbuild -->
         <!-- build:css assets/styles/main.css -->
         <link rel="stylesheet" href="assets/styles/main.css">
         <!-- endbuild -->
+        <link rel="stylesheet" href="assets/styles/app.css">
+
     </head>
-    <body ng-app="adminApp">
+
+    <body ng-app="adminApp" data-ng-class="{ 'layout-fixed' : app.layout.isFixed, 'aside-collapsed' : app.layout.isCollapsed, 'layout-boxed' : app.layout.isBoxed, 'layout-fs': app.useFullLayout, 'hidden-footer': app.hiddenFooter, 'layout-h': app.layout.horizontal, 'aside-float': app.layout.isFloat}">
         <!--[if lt IE 10]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
         <div ng-show="{{ENV === 'dev'}}" class="development" ng-cloak=""></div>
+
+        <div data-ui-view="" data-autoscroll="false" class="wrapper"></div>
+
+<!--
         <div ui-view="navbar" ng-cloak=""></div>
         <div class="container">
             <div class="well" ui-view="content"></div>
-
             <div class="footer">
                 <p translate="footer">This is your footer</p>
             </div>
         </div>
+-->
 
         <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
         <script>
@@ -50,15 +60,21 @@
         <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
         <script src="bower_components/json3/lib/json3.js"></script>
         <script src="bower_components/angular/angular.js"></script>
-        <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-        <script src="bower_components/angular-resource/angular-resource.js"></script>
-        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
         <script src="bower_components/angular-translate/angular-translate.js"></script>
+        <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+        <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
         <script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
         <script src="bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
         <script src="bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
         <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+        <script src="bower_components/angular-animate/angular-animate.js"></script>
+        <script src="bower_components/angular-ui-utils/ui-utils.js"></script>
+        <script src="bower_components/oclazyload/dist/ocLazyLoad.min.js"></script>
+        <script src="bower_components/ngstorage/ngStorage.js"></script>
         <script src="bower_components/angular-cache-buster/angular-cache-buster.js"></script>
         <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
         <!-- endbower -->
@@ -140,6 +156,10 @@
         <script src="scripts/app/entities/right/right.controller.js"></script>
         <script src="scripts/app/entities/right/right-detail.controller.js"></script>
         <script src="scripts/components/entities/right/right.service.js"></script>
+        <script src="scripts/components/util/toggle-state.js"></script>
+        <script src="scripts/components/util/colors.js"></script>
+        <script src="scripts/components/util/browser.js"></script>
+        <script src="scripts/components/util/utils.js"></script>
         <!-- endbuild -->
 </body>
 </html>
