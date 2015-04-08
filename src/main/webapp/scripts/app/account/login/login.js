@@ -7,11 +7,11 @@ angular.module('adminApp')
                 parent: 'account',
                 url: '/login',
                 data: {
-                    roles: [], 
+                    roles: [],
                     pageTitle: 'login.title'
                 },
                 views: {
-                    'content@': {
+                    'layout@': {
                         templateUrl: 'scripts/app/account/login/login.html',
                         controller: 'LoginController'
                     }

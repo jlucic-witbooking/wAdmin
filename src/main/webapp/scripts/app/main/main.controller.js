@@ -1,10 +1,15 @@
 'use strict';
 
 angular.module('adminApp')
-    .controller('MainController', function ($scope, Principal) {
+    .controller('MainController', function ($scope, $state, Principal) {
         Principal.identity().then(function (account) {
             $scope.account = account;
             $scope.isAuthenticated = Principal.isAuthenticated;
+/*
+            if(!$scope.isAuthenticated()){
+                $state.go('login');
+            }
+*/
         });
     })
     .controller('AppController',
@@ -163,6 +168,33 @@ angular.module('adminApp')
 
                 var menuJson = 'server/sidebar-menu.json',
                     menuURL = menuJson + '?v=' + (new Date().getTime()); // jumps cache
+                $scope.menuItems=[
+                    {
+                        "text": "Menu Heading",
+                        "heading": "true",
+                        "translate": "sidebar.heading.HEADER"
+                    },
+                    {
+                        "text": "Single View",
+                        "sref": "app.singleview",
+                        "icon": "fa fa-file-o",
+                        "translate": "sidebar.nav.SINGLEVIEW"
+                    },
+                    {
+                        "text": "Menu",
+                        "sref": "#",
+                        "icon": "icon-folder",
+                        "submenu": [
+                            { "text": "Sub Menu",
+                                "sref": "app.submenu",
+                                "translate": "sidebar.nav.menu.SUBMENU"
+                            }
+                        ],
+                        "translate": "sidebar.nav.menu.MENU"
+                    }
+                ];
+
+/*
                 $http.get(menuURL)
                     .success(function (items) {
                         $scope.menuItems = items;
@@ -170,6 +202,7 @@ angular.module('adminApp')
                     .error(function (data, status, headers, config) {
                         alert('Failure loading menu');
                     });
+*/
             };
 
             $scope.loadSidebarMenu();

@@ -92,10 +92,11 @@ angular.module('adminApp', ['LocalStorageModule', 'tmh.dynamicLocale',
 /*
         $urlRouterProvider.otherwise('/');
 */
-        $urlRouterProvider.otherwise('/app/singleview');
+        $urlRouterProvider.otherwise('/');
         $stateProvider
             .state('site', {
                 'abstract': true,
+                templateUrl: 'scripts/components/inventoryManagement/app.html',
                 views: {
                     'navbar@': {
                         templateUrl: 'scripts/components/navbar/navbar.html',
@@ -115,32 +116,26 @@ angular.module('adminApp', ['LocalStorageModule', 'tmh.dynamicLocale',
                     }]
                 }
             })
-            .state('app', {
-                url: '/app',
-                abstract: true,
-                templateUrl: 'scripts/components/inventoryManagement/app.html',
-                controller: 'AppController',
-                data: {
-                    pageTitle: 'adminApp.authorizedEstablishmentUser.home.title'
-                }
-            })
-            .state('app.singleview', {
-                url: '/singleview',
+            .state('singleview', {
+                parent:'home',
+                url: 'singleview',
                 title: 'Single View',
-                templateUrl: 'scripts/components/inventoryManagement/singleview.html',
                 data: {
                     pageTitle: 'adminApp.authorizedEstablishmentUser.home.title'
+                },
+                views: {
+                    'content@home': {
+                        templateUrl: 'scripts/components/inventoryManagement/singleview.html'
+                    }
+                },
+                resolve: {
+                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                        $translatePartialLoader.addPart('main');
+                        $translatePartialLoader.addPart('authorizedEstablishmentUser');
+                        return $translate.refresh();
+                    }]
                 }
             })
-            .state('app.submenu', {
-                url: '/submenu',
-                title: 'Submenu',
-                templateUrl: 'scripts/components/inventoryManagement/submenu.html',
-                data: {
-                    pageTitle: 'adminApp.authorizedEstablishmentUser.home.title'
-                }
-            });
-
 
         // Initialize angular-translate
         $translateProvider.useLoader('$translatePartialLoader', {

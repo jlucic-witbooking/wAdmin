@@ -48,7 +48,7 @@ public class UserDetailsService implements org.springframework.security.core.use
                 grantedAuthorities.add(grantedAuthority);
             }else{
                 EstablishmentGrantedAuthority grantedAuthority = new EstablishmentGrantedAuthority();
-                grantedAuthority.setDomainObjectIdentifier(authorizedEstablishmentUser.getBookingEngine().getName());
+                grantedAuthority.setDomainObjectIdentifier(authorizedEstablishmentUser.getBookingEngine().getTicker());
                 grantedAuthority.setAuthority(authorizedEstablishmentUser.getAuthority());
                 grantedAuthorities.add(grantedAuthority);
             }

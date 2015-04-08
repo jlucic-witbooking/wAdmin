@@ -14,5 +14,26 @@
         },
         "like": "Si vous aimez JHipster, donnez nous une étoile sur",
         "github": "Github"
+    },
+    "dashboard": {
+        "WELCOME": "Welcome to {{appName}}"
+    },
+    "topbar": {
+        "search": {
+            "PLACEHOLDER": "Type and hit enter.."
+        }
+    },
+    "sidebar": {
+        "WELCOME": "Welcome",
+        "heading": {
+            "HEADER": "Main Navigation"
+        },
+        "nav": {
+            "SINGLEVIEW": "Single View",
+            "menu": {
+                "MENU": "Menu",
+                "SUBMENU": "Sub Menu"
+            }
+        }
     }
 }

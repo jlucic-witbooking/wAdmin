@@ -130,7 +130,7 @@ public class AccountResource {
             if(authorizedEstablishmentUser.getBookingEngine() == null){
                 key = AuthoritiesConstants.NO_DOMAIN_OBJECT;
             }else{
-                key = authorizedEstablishmentUser.getBookingEngine().getName();
+                key = authorizedEstablishmentUser.getBookingEngine().getTicker();
             }
 
             if (!roles.containsKey(key)){

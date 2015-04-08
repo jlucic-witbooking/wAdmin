@@ -1,0 +1,3 @@
+user_id;authority_name;bookingengine_id
+3;ROLE_ADMIN;1
+3;ROLE_ADMIN;null

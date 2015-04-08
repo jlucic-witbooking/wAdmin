@@ -71,7 +71,8 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Authority> authorities = new HashSet<>();
 */
-
+    /*IMPORTANT: IF ROLES / RIGHTS ARE EDITED AT RUNTIME, THEY MUST BE MODIFIED BY HIBERNATE OR ELSE THE RIGHTS/ROLES CACHE WILL NOT BE UPDATED
+    * ACCORDINGLY */
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "user")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

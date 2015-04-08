@@ -1,13 +1,13 @@
 @charset "UTF-8";
 @import url(//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,400italic);
 /*!
- * 
+ *
  * Angle - Bootstrap Admin App + AngularJS
- * 
+ *
  * Author: @themicon_co
  * Website: http://themicon.co
  * License: http://support.wrapbootstrap.com/knowledge_base/topics/usage-licenses
- * 
+ *
  */
 /* ========================================================================
 
@@ -80,7 +80,7 @@
   8.9 vector-map / vector-map
   8.10 portlets / .portlet
 
-9. Utilities 
+9. Utilities
   9.1 utils
 
 10. Print CSS
@@ -2867,6 +2867,10 @@ select[multiple].form-group-lg .form-control {
   text-align: center;
   pointer-events: none;
 }
+span.form-control-feedback {
+    line-height: 14px;
+}
+
 .input-lg + .form-control-feedback {
   width: 46px;
   height: 46px;
@@ -14429,7 +14433,7 @@ ul[rn-carousel] {
  ========================================================================== */
 /**
  * Custom form elements
- *    - Checkbox 
+ *    - Checkbox
  *    - Radios
  *    - Switch
  *    - Rounded inputs
@@ -15405,7 +15409,7 @@ body .ng-table-pager:after {
 }
 /* ========================================================================
    Component: plugins.less
-   - User this stylesheet to include single css styles and fixes 
+   - User this stylesheet to include single css styles and fixes
      for plugins
  ========================================================================== */
 /**
@@ -16834,7 +16838,7 @@ body .jvectormap-zoomout {
   max-width: 100%;
   min-width: 100%;
 }
-/** 
+/**
  * Displays hidden content on hover. Add this class to the parent element.
  * Markup
  *   <div class="hover-visible">

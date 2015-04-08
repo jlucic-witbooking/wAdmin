@@ -18,9 +18,9 @@ angular.module('adminApp')
                 }
                 var userRoles=[];
                 if(!establishment){
-                    userRoles=_identity.roles["NO_DOMAIN_OBJECT"];
+                    userRoles=_identity.roles["NO_DOMAIN_OBJECT"] || [] ;
                 }else{
-                    userRoles=_identity.roles[establishment];
+                    userRoles=_identity.roles[establishment] || [] ;
                 }
 
                 return userRoles.indexOf(role) !== -1;

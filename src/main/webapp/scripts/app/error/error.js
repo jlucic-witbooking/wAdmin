@@ -29,7 +29,7 @@ angular.module('adminApp')
                     roles: []
                 },
                 views: {
-                    'content@': {
+                    'layout@': {
                         templateUrl: 'scripts/app/error/accessdenied.html'
                     }
                 },

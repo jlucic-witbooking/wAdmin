@@ -43,4 +43,23 @@
    <changeSet author="mongoose (generated)" id="1428314915333-11">
       <dropTable tableName="T_USER_AUTHORITY"/>
    </changeSet>
+    <changeSet author="mongoose (generated)" id="1428314915333-12">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/bookingengine.csv"
+                  separator=";"
+                  tableName="T_BOOKINGENGINE"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/rights.csv"
+                  separator=";"
+                  tableName="T_RIGHT"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/authorities_rights.csv"
+                  separator=";"
+                  tableName="T_AUTHORITY_RIGHT"/>
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/authorized_establishment_user.csv"
+                  separator=";"
+                  tableName="T_AUTHORIZEDESTABLISHMENTUSER"/>
+    </changeSet>
+
 </databaseChangeLog>

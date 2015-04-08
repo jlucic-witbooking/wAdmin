@@ -7,10 +7,10 @@ angular.module('adminApp')
                 parent: 'site',
                 url: '/',
                 data: {
-                    roles: []
+                    roles: ['ROLE_ADMIN'],
                 },
                 views: {
-                    'content@': {
+                    'layout@': {
                         templateUrl: 'scripts/app/main/main.html',
                         controller: 'MainController'
                     }
@@ -21,5 +21,6 @@ angular.module('adminApp')
                         return $translate.refresh();
                     }]
                 }
-            });
+            })
+
     });

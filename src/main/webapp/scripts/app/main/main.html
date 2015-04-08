@@ -1,4 +1,4 @@
-<div ng-cloak>
+<!--<div ng-cloak>
     <div class="row">
         <div class="col-md-4">
             <span class="hipster img-responsive img-rounded"></span>
@@ -39,4 +39,14 @@
             </p>
         </div>
     </div>
-</div>
+</div>-->
+
+
+<header ng-include="'scripts/components/topNavbar/topnavbar.html'" class="topnavbar-wrapper"></header>
+<aside ng-include="'scripts/components/leftSidebar/sidebar.html'" ng-controller="SidebarController" class="aside"></aside>
+<aside ng-include="'scripts/components/rightSideBar/offsidebar.html'" class="offsidebar"></aside>
+<section>
+    <div ui-view="content" autoscroll="false" ng-class="app.viewAnimation" class="content-wrapper"></div>
+</section>
+<footer ng-include="'scripts/components/footer/footer.html'"></footer>
+
