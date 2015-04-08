@@ -96,13 +96,6 @@ angular.module('adminApp', ['LocalStorageModule', 'tmh.dynamicLocale',
         $stateProvider
             .state('site', {
                 'abstract': true,
-                templateUrl: 'scripts/components/inventoryManagement/app.html',
-                views: {
-                    'navbar@': {
-                        templateUrl: 'scripts/components/navbar/navbar.html',
-                        controller: 'NavbarController'
-                    }
-                },
                 resolve: {
                     authorize: ['Auth',
                         function (Auth) {

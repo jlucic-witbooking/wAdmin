@@ -42,6 +42,42 @@
                <em class="icon-notebook"></em>
             </a>
          </li>
+
+
+
+          <!-- START Language list-->
+<!--
+          <li>
+
+          <div class="pull-right">
+              <div dropdown="" is-open="language.listIsOpen" class="btn-group">
+                  <button type="button" dropdown-toggle="" class="btn btn-default">{{language.selected}}
+                      <span class="caret"></span>
+                  </button>
+                  <ul role="menu" class="dropdown-menu dropdown-menu-right animated fadeInUpShort">
+                      <li ng-repeat="(localeId, langName) in language.available"><a ng-click="language.set(localeId, $event)">{{langName}}</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+          </li>
+-->
+          <li ui-sref-active="active" class="dropdown pointer" ng-controller="LanguageController">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                                <span>
+                                    <span class="icon-flag"></span>
+                                    <span class="hidden-tablet" translate="global.menu.language">Language</span>
+                                    <b class="caret"></b>
+                                </span>
+              </a>
+              <ul class="dropdown-menu">
+                  <li active-menu="{{language}}" ng-repeat="language in languages">
+                      <a href="" ng-click="changeLanguage(language)">{{'language.' + language| translate}}</a>
+                  </li>
+              </ul>
+          </li>
+          <!-- END Language list    -->
+
          <!-- END Offsidebar menu-->
       </ul>
       <!-- END Right Navbar-->

@@ -42,11 +42,11 @@
 </div>-->
 
 
-<header ng-include="'scripts/components/topNavbar/topnavbar.html'" class="topnavbar-wrapper"></header>
-<aside ng-include="'scripts/components/leftSidebar/sidebar.html'" ng-controller="SidebarController" class="aside"></aside>
-<aside ng-include="'scripts/components/rightSideBar/offsidebar.html'" class="offsidebar"></aside>
+<header ng-include="'scripts/components/layout/topnavbar.html'" class="topnavbar-wrapper"></header>
+<aside ng-include="'scripts/components/layout/sidebar.html'" ng-controller="SidebarController" class="aside"></aside>
+<aside ng-include="'scripts/components/layout/offsidebar.html'" class="offsidebar"></aside>
 <section>
     <div ui-view="content" autoscroll="false" ng-class="app.viewAnimation" class="content-wrapper"></div>
 </section>
-<footer ng-include="'scripts/components/footer/footer.html'"></footer>
+<footer ng-include="'scripts/components/layout/footer.html'"></footer>
 
