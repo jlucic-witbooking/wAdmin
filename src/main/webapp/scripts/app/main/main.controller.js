@@ -297,6 +297,175 @@ angular.module('adminApp')
 
                         ]
                     },
+                    {
+                        "text": "Communications",
+                        "sref": "#",
+                        "icon": "fa fa-file-o",
+                        "translate": "sidebar.nav.COMMUNICATIONS",
+                        "submenu": [
+                            {
+                                "text": "Booking Engine Messages",
+                                "sref": "communications.messages",
+                                "translate": "sidebar.nav.communications.messages"
+                            },
+                            {
+                                "text": "Low availability alert",
+                                "sref": "communications.lowavailability",
+                                "translate": "sidebar.nav.communications.lowavailability"
+                            },
+                            {
+                                "text": "Reservation horizon alert",
+                                "sref": "communications.reservationhorizon",
+                                "translate": "sidebar.nav.communications.reservationhorizon"
+                            },
+                            {
+                                "text": "Confirmation emails",
+                                "sref": "communications.confirmationemails",
+                                "translate": "sidebar.nav.communications.confirmationemails"
+                            },
+                            {
+                                "text": "Pre-Stay emails",
+                                "sref": "communications.prestayemails",
+                                "translate": "sidebar.nav.communications.prestayemails"
+                            },
+                            {
+                                "text": "Post-Stay emails",
+                                "sref": "communications.poststayemails",
+                                "translate": "sidebar.nav.communications.poststayemails"
+                            },
+                            {
+                                "text": "Reservation emails list",
+                                "sref": "communications.reservationemailslist",
+                                "translate": "sidebar.nav.communications.reservationemailslist"
+                            },
+                            {
+                                "text": "Newsletter emails list",
+                                "sref": "communications.newsletteremailslist",
+                                "translate": "sidebar.nav.communications.newsletteremailslist"
+                            },
+                        ]
+                    },
+                    {
+                        "text": "Web Contents",
+                        "sref": "#",
+                        "icon": "fa fa-file-o",
+                        "translate": "sidebar.nav.WEBCONTENTS",
+                        "submenu": [
+                            {
+                                "text": "Navigation Bar",
+                                "sref": "webcontents.navbar",
+                                "translate": "sidebar.nav.webcontents.navbar"
+                            },
+                            {
+                                "text": "Static Pages",
+                                "sref": "webcontents.staticpages",
+                                "translate": "sidebar.nav.webcontents.staticpages"
+                            },
+                            {
+                                "text": "Social networks",
+                                "sref": "webcontents.socialnetwork",
+                                "translate": "sidebar.nav.webcontents.socialnetwork",
+                                "submenu": [
+                                    {
+                                        "text": "links",
+                                        "sref": "webcontents.socialnetwork.links",
+                                        "translate": "sidebar.nav.webcontents.socialnetworks.links"
+                                    },
+                                    {
+                                        "text": "Widgets",
+                                        "sref": "webcontents.socialnetwork.widgets",
+                                        "translate": "sidebar.nav.webcontents.socialnetworks.widgets"
+                                    }
+                                ]
+                            },
+                            {
+                                "text": "Location",
+                                "sref": "webcontents.location",
+                                "translate": "sidebar.nav.webcontents.location",
+                                "submenu": [
+                                    {
+                                        "text": "Guide",
+                                        "sref": "webcontents.location.Guide",
+                                        "translate": "sidebar.nav.webcontents.locations.guide"
+                                    },
+                                    {
+                                        "text": "How to get here",
+                                        "sref": "webcontents.location.howtogethere",
+                                        "translate": "sidebar.nav.webcontents.locations.howtogethere"
+                                    }
+                                ]
+                            },
+                            {
+                                "text": "Testimonials",
+                                "sref": "webcontents.testimonials",
+                                "translate": "sidebar.nav.webcontents.testimonials"
+                            },
+                            {
+                                "text": "Configuration",
+                                "sref": "#",
+                                "icon": "fa fa-file-o",
+                                "translate": "sidebar.nav.CONFIGURATION",
+                                "submenu": [
+                                    {   "text": "Establishment Info",
+                                        "sref": "configuration.establishmentinfo",
+                                        "translate": "sidebar.nav.configuration.establishmentinfo"
+                                    },
+                                    {   "text": "Parameterization",
+                                        "sref": "configuration.parameterization",
+                                        "translate": "sidebar.nav.configuration.parameterization"
+                                    },
+                                    {   "text": "Appearance",
+                                        "sref": "configuration.appearance",
+                                        "translate": "sidebar.nav.configuration.appearance"
+                                    },
+                                    {   "text": "Define Inventory",
+                                        "sref": "configuration.defineinventory",
+                                        "translate": "sidebar.nav.configuration.defineinventory"
+                                    },
+                                    {   "text": "Batch Create Inventory",
+                                        "sref": "configuration.batchcreatehinventory",
+                                        "translate": "sidebar.nav.configuration.batchcreatehinventory"
+                                    },
+                                    {   "text": "Batch Edit Inventory",
+                                        "sref": "configuration.batchedithinventory",
+                                        "translate": "sidebar.nav.configuration.batchedithinventory"
+                                    },
+                                    {   "text": "Change Passowrd",
+                                        "sref": "configuration.changepassowrd",
+                                        "translate": "sidebar.nav.configuration.changepassowrd"
+                                    },
+                                ]
+                            },
+                            {
+                                "text": "Admin",
+                                "sref": "#",
+                                "icon": "fa fa-file-o",
+                                "translate": "sidebar.nav.ADMIN",
+                                "submenu": [
+                                    {   "text": "User Authorization",
+                                        "sref": "admin.authorization",
+                                        "translate": "sidebar.nav.admin.authorization"
+                                    },
+                                    {   "text": "Create Establishment",
+                                        "sref": "admin.createestablishment",
+                                        "translate": "sidebar.nav.admin.createestablishment"
+                                    },
+                                    {   "text": "Create Group",
+                                        "sref": "admin.creategroup",
+                                        "translate": "sidebar.nav.admin.creategroup"
+                                    },
+                                    {   "text": "Contract List",
+                                        "sref": "admin.contractlist",
+                                        "translate": "sidebar.nav.admin.contractlist"
+                                    },
+                                    {   "text": "Active Contracts List",
+                                        "sref": "admin.batchcreatehinventory",
+                                        "translate": "sidebar.nav.admin.batchcreatehinventory"
+                                    },
+                                ]
+                            }
+                        ]
+                    }
 
                 ]
 
