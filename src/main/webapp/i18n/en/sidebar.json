@@ -1,0 +1,23 @@
+{
+    "sidebar": {
+        "WELCOME": "Welcome",
+        "heading": {
+            "HEADER": "Main Navigation",
+            "ADDONS":"Add-ons"
+        },
+        "nav": {
+            "SINGLEVIEW": "Single View",
+            "RESERVATIONS":"Reservations",
+            "INVENTORY":"Inventory",
+            "REPORTS":"Reports",
+            "COMMUNICATIONS":"Communications",
+            "WEBCONTENTS":"Web Contents",
+            "DYNAMICPRICING":"Dynamic Pricing",
+            "menu": {
+                "MENU": "Menu",
+                "SUBMENU": "Sub Menu"
+            }
+        }
+    }
+}
+

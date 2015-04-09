@@ -28,6 +28,17 @@
          </li>
       </ul>
       <!-- END Left navbar-->
+       <ul class="nav navbar-nav ">
+           <!-- Search icon-->
+           <li>
+            <a>
+                <div>
+                    <span>HOLIS</span>
+                </div>
+            </a>
+           </li>
+       </ul>
+
       <!-- START Right Navbar-->
       <ul class="nav navbar-nav navbar-right">
          <!-- Search icon-->
@@ -46,22 +57,6 @@
 
 
           <!-- START Language list-->
-<!--
-          <li>
-
-          <div class="pull-right">
-              <div dropdown="" is-open="language.listIsOpen" class="btn-group">
-                  <button type="button" dropdown-toggle="" class="btn btn-default">{{language.selected}}
-                      <span class="caret"></span>
-                  </button>
-                  <ul role="menu" class="dropdown-menu dropdown-menu-right animated fadeInUpShort">
-                      <li ng-repeat="(localeId, langName) in language.available"><a ng-click="language.set(localeId, $event)">{{langName}}</a>
-                      </li>
-                  </ul>
-              </div>
-          </div>
-          </li>
--->
           <li ui-sref-active="active" class="dropdown pointer" ng-controller="LanguageController">
               <a class="dropdown-toggle" data-toggle="dropdown" href="">
                                 <span>

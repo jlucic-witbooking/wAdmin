@@ -1,0 +1,9 @@
+{
+    "adminApp": {
+        "dynamicPricing": {
+            "home": {
+                "title": "Dynamic Pricing"
+            }
+        }
+    }
+}

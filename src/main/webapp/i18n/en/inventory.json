@@ -1,0 +1,11 @@
+{
+    "adminApp": {
+        "inventory": {
+            "management": {
+                "home": {
+                    "title": "Inventory Management"
+                }
+            }
+        }
+    }
+}

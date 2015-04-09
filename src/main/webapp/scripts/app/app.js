@@ -6,6 +6,7 @@ angular.module('adminApp', ['LocalStorageModule', 'tmh.dynamicLocale',
 
     .run(function ($rootScope, $location, $window, $http, $state, $translate, Auth, Principal, Language, ENV, VERSION,$stateParams,$templateCache) {
         /***ANGLE CONFIGURATION ***/
+
         /*** J TODO: DELETE OR CHANGE THIS!!! ITS UGLY ******/
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
@@ -89,13 +90,10 @@ angular.module('adminApp', ['LocalStorageModule', 'tmh.dynamicLocale',
         //Cache everything except rest api requests
         httpRequestInterceptorCacheBusterProvider.setMatchlist([/.*api.*/, /.*protected.*/], true);
 
-/*
-        $urlRouterProvider.otherwise('/');
-*/
         $urlRouterProvider.otherwise('/');
         $stateProvider
             .state('site', {
-                'abstract': true,
+                abstract: true,
                 resolve: {
                     authorize: ['Auth',
                         function (Auth) {

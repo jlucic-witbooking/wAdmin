@@ -4,16 +4,10 @@ angular.module('adminApp')
     .config(function ($stateProvider) {
         $stateProvider
             .state('home', {
-                parent: 'site',
+                parent: 'layout',
                 url: '/',
                 data: {
                     roles: ['ROLE_ADMIN']
-                },
-                views: {
-                    'layout@': {
-                        templateUrl: 'scripts/app/main/main.html',
-                        controller: 'MainController'
-                    }
                 },
                 resolve: {
                     mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {

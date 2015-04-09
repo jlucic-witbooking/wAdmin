@@ -1,0 +1,19 @@
+/**
+ * Created by mongoose on 9/04/15.
+ */
+{
+    "sidebar": {
+        "WELCOME": "Welcome",
+        "heading": {
+            "HEADER": "Main Navigation",
+            "ADDONS":"Add-ons"
+        },
+        "nav": {
+            "SINGLEVIEW": "Single View",
+            "menu": {
+                "MENU": "Menu",
+                "SUBMENU": "Sub Menu"
+            }
+        }
+    }
+}
