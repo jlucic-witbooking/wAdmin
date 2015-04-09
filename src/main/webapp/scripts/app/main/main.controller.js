@@ -194,6 +194,112 @@ angular.module('adminApp')
                     }
                 ];
 
+                $scope.menuItems=[
+                    {
+                        "text": "Menu Heading",
+                        "heading": "true",
+                        "translate": "sidebar.heading.HEADER"
+                    },
+                    {
+                        "text": "Reservations",
+                        "sref": "#",
+                        "icon": "fa fa-file-o",
+                        "translate": "sidebar.nav.RESERVATIONS",
+                        "submenu": [
+                            {   "text": "List",
+                                "sref": "reservation.list",
+                                "translate": "sidebar.nav.reservations.LIST"
+                            },
+                            {   "text": "Occupancy",
+                                "sref": "reservation.occupancy",
+                                "translate": "sidebar.nav.reservations.OCCUPANCY"
+                            },
+                            {   "text": "Check-ins/Check-outs",
+                                "sref": "reservation.checkinscheckouts",
+                                "translate": "sidebar.nav.reservations.CHECKINSCHECKOUTS"
+                            },
+                            {   "text": "Insert Booking",
+                                "sref": "reservation.booking",
+                                "translate": "sidebar.nav.reservations.BOOKING"
+                            },
+                        ]
+                    },
+                    {
+                        "text": "Inventory",
+                        "sref": "#",
+                        "icon": "fa fa-file-o",
+                        "translate": "sidebar.nav.INVENTORY",
+                        "submenu": [
+                            {   "text": "Management",
+                                "sref": "inventory.management",
+                                "translate": "sidebar.nav.inventory.MANAGEMENT"
+                            },
+                            {   "text": "Extras",
+                                "sref": "inventory.extras",
+                                "translate": "sidebar.nav.inventory.EXTRAS"
+                            },
+                            {   "text": "Promotions",
+                                "sref": "inventory.promotions",
+                                "translate": "sidebar.nav.inventory.PROMOTIONS"
+                            }
+                        ]
+                    },
+                    {
+                        "text": "Reports",
+                        "sref": "#",
+                        "icon": "fa fa-file-o",
+                        "translate": "sidebar.nav.REPORTS",
+                        "submenu": [
+                            {   "text": "Reservations List",
+                                "sref": "reports.reservationslist",
+                                "translate": "sidebar.nav.reports.reservationslist"
+                            },
+                            {   "text": "Extended Reservations List",
+                                "sref": "reports.extendedreservationslist",
+                                "translate": "sidebar.nav.reports.extendedreservationslist"
+                            },
+                            {   "text": "Visitors List",
+                                "sref": "reports.visitorslist",
+                                "translate": "sidebar.nav.reports.visitorslist"
+                            },
+                            {   "text": "Inventory List",
+                                "sref": "reports.inventorylist",
+                                "translate": "sidebar.nav.reports.inventorylist"
+                            },
+                            {   "text": "ABC Clients",
+                                "sref": "reports.clients",
+                                "translate": "sidebar.nav.reports.clients"
+                            },
+                            {   "text": "Reservations By Establishment",
+                                "sref": "reports.reservationsbyestablishment",
+                                "translate": "sidebar.nav.reports.reservationsbyestablishment"
+                            },
+                            {   "text": "Reservations By Agent",
+                                "sref": "reports.reservationsbyagent",
+                                "translate": "sidebar.nav.reports.reservationsbyagent"
+                            },
+                            {   "text": "Cancellations List",
+                                "sref": "reports.cancellationslist",
+                                "translate": "sidebar.nav.reports.cancellationslist"
+                            },
+                            {   "text": "Performance",
+                                "sref": "reports.performance",
+                                "translate": "sidebar.nav.reports.performance"
+                            },
+                            {   "text": "Surveys",
+                                "sref": "reports.surveys",
+                                "translate": "sidebar.nav.reports.surveys"
+                            },
+                            {   "text": "Survey Results",
+                                "sref": "reports.surveyresults",
+                                "translate": "sidebar.nav.reports.surveyresults"
+                            },
+
+                        ]
+                    },
+
+                ]
+
 /*
                 $http.get(menuURL)
                     .success(function (items) {

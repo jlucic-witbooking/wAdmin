@@ -7,7 +7,7 @@ angular.module('adminApp')
                 parent: 'site',
                 url: '/',
                 data: {
-                    roles: ['ROLE_ADMIN'],
+                    roles: ['ROLE_ADMIN']
                 },
                 views: {
                     'layout@': {
