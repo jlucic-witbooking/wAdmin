@@ -10,6 +10,7 @@
                 "bookingEngine": "BookingEngine",
                 "authorizedEstablishmentUser": "AuthorizedEstablishmentUser",
                 "right": "Right",
+                "authority": "Authority",
                 "additionalEntity": "JHipster will add addtional entities"
             },
             "account": {

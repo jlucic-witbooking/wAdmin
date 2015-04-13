@@ -1,0 +1,20 @@
+{
+    "adminApp": {
+        "authority" : {
+            "home": {
+                "title": "Authoritys",
+                "createLabel": "Créer un nouveau Authority",
+                "createOrEditLabel": "Créer ou éditer un Authority"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Authority {{ id }} ?"
+            },
+            "detail": {
+                "title": "Authority"
+            },
+            "name": "Name",
+            "right": "right"
+        }
+    }
+}
+

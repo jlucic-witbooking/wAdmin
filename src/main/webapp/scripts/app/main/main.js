@@ -5,9 +5,15 @@ angular.module('adminApp')
         $stateProvider
             .state('home', {
                 parent: 'layout',
-                url: '/',
+                url: 'dashboard',
                 data: {
                     roles: ['ROLE_ADMIN']
+                },
+                views: {
+                    'content@layout': {
+                        templateUrl: 'scripts/app/main/main.html',
+                        controller: 'MainController'
+                    }
                 },
                 resolve: {
                     mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {

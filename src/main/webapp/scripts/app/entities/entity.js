@@ -5,6 +5,6 @@ angular.module('adminApp')
         $stateProvider
             .state('entity', {
                 abstract: true,
-                parent: 'site'
+                parent: 'layout'
             });
     });

@@ -1,52 +1,10 @@
-<!--<div ng-cloak>
-    <div class="row">
-        <div class="col-md-4">
-            <span class="hipster img-responsive img-rounded"></span>
-        </div>
-        <div class="col-md-8">
-            <h1 translate="main.title">Welcome, Java Hipster!</h1>
-            <p class="lead" translate="main.subtitle">This is your homepage</p>
-
-            <div ng-switch="isAuthenticated()">
-                <div class="alert alert-success" ng-switch-when="true"
-                     translate="main.logged.message" translate-values="{username: '{{account.login}}'}">
-                    You are logged in as user "Admin".
-                </div>
-
-                <div class="alert alert-warning" ng-switch-when="false" translate="global.messages.info.authenticated">
-                    If you want to <a href="#/login">authenticate</a>, you can try the default login="admin" and
-                    password="admin".
-                </div>
-
-                <div class="alert alert-warning" ng-switch-when="false" translate="global.messages.info.register">
-                    Don't have an account? <a href=\"#/register\">Register</a>
-                </div>
-            </div>
-
-            <p translate="main.question">
-                If you have any question on JHipster:
-            </p>
-
-            <ul>
-                <li><a href="http://jhipster.github.io/" target="_blank" translate="main.link.homepage">JHipster homepage</a></li>
-                <li><a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" translate="main.link.stackoverflow">JHipster on Stack Overflow</a></li>
-                <li><a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" translate="main.link.bugtracker">JHipster bug tracker</a></li>
-                <li><a href="https://twitter.com/java_hipster" target="_blank"  translate="main.link.contact">contact @java_hipster on Twitter</a></li>
-            </ul>
-
-            <p>
-             <span translate="main.like">If you like JHipster, don't forget to give us a star on </span>&nbsp;<a href="https://github.com/jhipster/generator-jhipster" target="_blank" translate="main.github">Github</a>!
-            </p>
-        </div>
+<h3>
+    <span translate>Witbooking Admin</span>
+    <small>Welcome!</small>
+</h3>
+<div class="row">
+    <div class="col-xs-12 text-center">
+        <h2 class="text-thin">Placeholder</h2>
+        <p> This is placeholder text for Witbooking's home module</p>
     </div>
-</div>-->
-
-
-<header ng-include="'scripts/components/layout/topnavbar.html'" class="topnavbar-wrapper"></header>
-<aside ng-include="'scripts/components/layout/sidebar.html'" ng-controller="SidebarController" class="aside"></aside>
-<aside ng-include="'scripts/components/layout/offsidebar.html'" class="offsidebar"></aside>
-<section>
-    <div ui-view="content" autoscroll="false" ng-class="app.viewAnimation" class="content-wrapper"></div>
-</section>
-<footer ng-include="'scripts/components/layout/footer.html'"></footer>
-
+</div>

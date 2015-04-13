@@ -5,13 +5,13 @@ angular.module('adminApp')
         $stateProvider
             .state('authorizedEstablishmentUser', {
                 parent: 'entity',
-                url: '/authorizedEstablishmentUser',
+                url: 'authorizedEstablishmentUser',
                 data: {
-                    roles: ['ROLE_USER'],
+                    roles: ['ROLE_USER','ROLE_ADMIN'],
                     pageTitle: 'adminApp.authorizedEstablishmentUser.home.title'
                 },
                 views: {
-                    'content@': {
+                    'content@layout': {
                         templateUrl: 'scripts/app/entities/authorizedEstablishmentUser/authorizedEstablishmentUsers.html',
                         controller: 'AuthorizedEstablishmentUserController'
                     }
@@ -25,13 +25,13 @@ angular.module('adminApp')
             })
             .state('authorizedEstablishmentUserDetail', {
                 parent: 'entity',
-                url: '/authorizedEstablishmentUser/:id',
+                url: 'authorizedEstablishmentUser/:id',
                 data: {
-                    roles: ['ROLE_USER'],
+                    roles: ['ROLE_USER','ROLE_ADMIN'],
                     pageTitle: 'adminApp.authorizedEstablishmentUser.detail.title'
                 },
                 views: {
-                    'content@': {
+                    'content@layout': {
                         templateUrl: 'scripts/app/entities/authorizedEstablishmentUser/authorizedEstablishmentUser-detail.html',
                         controller: 'AuthorizedEstablishmentUserDetailController'
                     }
