@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('adminApp')
-    .controller('AuthorizedEstablishmentUserController', function ($scope, AuthorizedEstablishmentUser, User, UserGroup, Authority, BookingEngine, ParseLinks) {
+    .controller('AuthorizedEstablishmentUserController', function ($scope,ngDialog, AuthorizedEstablishmentUser, User, UserGroup, Authority, BookingEngine, ParseLinks) {
         $scope.authorizedEstablishmentUsers = [];
         $scope.users = User.query();
         $scope.usergroups = UserGroup.query();
@@ -39,15 +39,27 @@ angular.module('adminApp')
         $scope.update = function (id) {
             AuthorizedEstablishmentUser.get({id: id}, function(result) {
                 $scope.authorizedEstablishmentUser = result;
-                $('#saveAuthorizedEstablishmentUserModal').modal('show');
+                //$('#saveAuthorizedEstablishmentUserModal').modal('show');
+                ngDialog.open({
+                    template: 'saveAuthorizedEstablishmentUserModalTemplate',
+                    scope: $scope
+                });
             });
         };
 
         $scope.delete = function (id) {
             AuthorizedEstablishmentUser.get({id: id}, function(result) {
                 $scope.authorizedEstablishmentUser = result;
+/*
                 $('#deleteAuthorizedEstablishmentUserConfirmation').modal('show');
+*/
+                ngDialog.open({
+                    template: 'deleteAuthorizedEstablishmentUserConfirmationTemplate',
+                    scope: $scope
+                });
+
             });
+
         };
 
         $scope.confirmDelete = function (id) {

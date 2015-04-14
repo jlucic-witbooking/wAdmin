@@ -2,7 +2,7 @@
 
 angular.module('adminApp', ['LocalStorageModule', 'tmh.dynamicLocale',
     'ngResource', 'ui.router', 'ngCookies', 'pascalprecht.translate', 'ngCacheBuster', 'infinite-scroll',
-    'ngAnimate','ngStorage','ngCookies','ui.bootstrap', 'oc.lazyLoad','cfp.loadingBar','ngSanitize','ui.utils'])
+    'ngAnimate','ngStorage','ngCookies','ui.bootstrap', 'oc.lazyLoad','cfp.loadingBar','ngSanitize','ui.utils','ngDialog','bprApp'])
 
     .run(function ($rootScope, $location, $window, $http, $state, $translate, Auth, Principal, Language, ENV, VERSION,$stateParams,$templateCache) {
         /***ANGLE CONFIGURATION ***/
