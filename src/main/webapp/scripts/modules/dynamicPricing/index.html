@@ -1,0 +1,92 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-duallistbox/dist/bootstrap-duallistbox.css" />
+    <link rel="stylesheet" href="bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css" />
+    <link rel="stylesheet" href="bower_components/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.css" />
+    <link rel="stylesheet" href="bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
+      <script>
+          var tickerList={"1":{"nombre":"Estándar","ticker":"stand_2a_SA_cg","configuracion":"2 adultos","pension":"Sólo alojamiento","condicion":"Cancelación gratuita"},"2":{"nombre":"Estándar","ticker":"stand_1a_SA_nr","configuracion":"1 adulto","pension":"Sólo alojamiento","condicion":"No reembolsable"},"3":{"nombre":"Junior Suite","ticker":"jnrsuite_2a_SA_nr","configuracion":"2 adultos","pension":"Sólo alojamiento","condicion":"No reembolsable"},"4":{"nombre":"Junior Suite","ticker":"jnrsuite_1a_SA_cg","configuracion":"1 adulto","pension":"Sólo alojamiento","condicion":"Cancelación gratuita"},"5":{"nombre":"Junior Suite","ticker":"jnrsuite","configuracion":"2 adultos","pension":"Sólo alojamiento","condicion":"Cancelación gratuita"},"8":{"nombre":"Triple","ticker":"tpl","configuracion":"3 adultos","pension":"Sólo alojamiento","condicion":"Cancelación gratuita"},"9":{"nombre":"Triple","ticker":"tpl_2a1n_SA_cg","configuracion":"2 adultos + 1 niño","pension":"Sólo alojamiento","condicion":"Cancelación gratuita"},"12":{"nombre":"Estándar","ticker":"stand_1a_SA_cg","configuracion":"1 adulto","pension":"Sólo alojamiento","condicion":"Cancelación gratuita"},"14":{"nombre":"Triple","ticker":"tpl_2a1n_SA_nr","configuracion":"2 adultos + 1 niño","pension":"Sólo alojamiento","condicion":"No reembolsable"},"18":{"nombre":"Estándar","ticker":"stand_2a_SA_nr","configuracion":"2 adultos","pension":"Sólo alojamiento","condicion":"No reembolsable"},"19":{"nombre":"Triple","ticker":"tpl_3a_SA_nr","configuracion":"3 adultos","pension":"Sólo alojamiento","condicion":"No reembolsable"},"21":{"nombre":"Junior Suite","ticker":"jnrsuite_1a_SA_nr","configuracion":"1 adulto","pension":"Sólo alojamiento","condicion":"No reembolsable"},"26":{"nombre":"Estándar","ticker":"stand_2a_HD_cg","configuracion":"2 adultos","pension":"Con desayuno","condicion":"Cancelación gratuita"},"29":{"nombre":"Pack Romántico","ticker":"p_rom2a2d","configuracion":"2 adultos","pension":"Sólo alojamiento","condicion":"Cancelación gratuita"},"31":{"nombre":"Pack Romántico","ticker":"p_rom2a3d","configuracion":"2 adultos","pension":"Sólo alojamiento","condicion":"Cancelación gratuita"},"35":{"nombre":"Estándar","ticker":"stand_2a_HD_nr","configuracion":"2 adultos","pension":"Con desayuno","condicion":"No reembolsable"},"45":{"nombre":"Triple","ticker":"tpl_3a_HD_nr","configuracion":"3 adultos","pension":"Con desayuno","condicion":"No reembolsable"},"46":{"nombre":"Triple","ticker":"tpl_3a_HD_cg","configuracion":"3 adultos","pension":"Con desayuno","condicion":"Cancelación gratuita"},"52":{"nombre":"Junior Suite","ticker":"jnrsuite_2a_HD_cg","configuracion":"2 adultos","pension":"Con desayuno","condicion":"Cancelación gratuita"},"53":{"nombre":"Junior Suite","ticker":"jnrsuite_2a_HD_nr","configuracion":"2 adultos","pension":"Con desayuno","condicion":"No reembolsable"},"59":{"nombre":"Estándar","ticker":"stand_2a_HD_corp","configuracion":"2 adultos","pension":"Con desayuno","condicion":"Tarifa corporate"},"68":{"nombre":"Triple","ticker":"tpl_4a_HD_nr","configuracion":"4 adultos","pension":"Con desayuno","condicion":"No reembolsable"},"77":{"nombre":"Estándar","ticker":"stand_2a2n1b_SA_cg","configuracion":"2 adultos + 2 niños + 1 bebé","pension":"Sólo alojamiento","condicion":"Cancelación gratuita"},"78":{"nombre":"Estándar","ticker":"stand_2a2n1b_SA_nr","configuracion":"2 adultos + 2 niños + 1 bebé","pension":"Sólo alojamiento","condicion":"No reembolsable"},"87":{"nombre":"Estándar","ticker":"stand_2a1n1b_SA_nr","configuracion":"2 adultos + 1 niño + 1 bebé","pension":"Sólo alojamiento","condicion":"No reembolsable"},"88":{"nombre":"Estándar","ticker":"stand_2a1n1b_SA_cg","configuracion":"2 adultos + 1 niño + 1 bebé","pension":"Sólo alojamiento","condicion":"Cancelación gratuita"},"103":{"nombre":"Estándar","ticker":"stand_3a_SA_cg","configuracion":"3 adultos","pension":"Sólo alojamiento","condicion":"Cancelación gratuita"},"105":{"nombre":"Estándar","ticker":"stand_prueba","configuracion":"1 adulto + 1 junior + 1 child","pension":"Con desayuno","condicion":"Cancelación gratuita"},"106":{"nombre":"Executive","ticker":"exec_4a3n2b_SA_cg","configuracion":"4 adultos + 3 niños + 2 bebés","pension":"Sólo alojamiento","condicion":"Cancelación gratuita"}};
+      </script>
+  </head>
+  <body ng-app="bprApp">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div ng-view class="mainContainer row"></div>
+
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/oldieshim.js -->
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.js"></script>
+    <![endif]-->
+    <!-- endbuild -->
+
+    <!-- build:js(.) scripts/vendor.js -->
+
+    <!-- bower:js -->
+    <script src="bower_components/jquery/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-translate/angular-translate.js"></script>
+    <script src="bower_components/bootstrap-duallistbox/src/jquery.bootstrap-duallistbox.js"></script>
+    <script src="bower_components/angular-bootstrap-duallistbox/dist/angular-bootstrap-duallistbox.js"></script>
+    <script src="bower_components/checklist-model/checklist-model.js"></script>
+    <script src="bower_components/jquery-ui/jquery-ui.js"></script>
+    <script src="bower_components/angular-ui-sortable/sortable.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/jqueryui-timepicker-addon/dist/jquery-ui-timepicker-addon.min.js"></script>
+    <script src="bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.js"></script>
+    <script src="bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+<!--
+        <script src="scripts/templates.js"></script>
+-->
+        <script src="scripts/services/constants.js"></script>
+        <script src="scripts/controllers/bookingpricerule.js"></script>
+        <script src="scripts/controllers/bookingpricerulelist.js"></script>
+        <script src="scripts/services/bookingpricerulemodel.js"></script>
+        <script src="scripts/services/bookingpricerulemanager.js"></script>
+        <script src="scripts/services/translations.js"></script>
+        <script src="scripts/services/timezonedetection.js"></script>
+        <!-- endbuild -->
+</body>
+</html>
