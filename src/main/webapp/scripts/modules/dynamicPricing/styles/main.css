@@ -189,7 +189,9 @@ a{
     /*text-align: center;*/
 }
 .bookingPriceRuleList {
+    /*
     text-align: center;
+    */
     margin: 20px 20px 0 20px;
 }
 .bookingPriceRuleList .row {

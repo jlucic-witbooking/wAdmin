@@ -10,7 +10,7 @@
 angular.module('bprApp')
   .constant('API_CONFIG', (function() {
     var PROTOCOL = '//';
-    var IP = 'api.witbooking.com';
+    var IP = 'api.dev.witbooker.com';
     var PORT = '';
     var PATH = '';
 /*

@@ -363,7 +363,8 @@ angular.module('bprApp')
 
           if (bookingPriceRule.save()) {
             BookingPriceRuleManager.save(establishmentTicker, bookingPriceRule, function () {
-              $location.path('bookingPriceRule/' + establishmentTicker + '/list');
+              $state.go('ruleList', {establishmentTicker:establishmentTicker});
+              //$location.path('bookingPriceRule/' + establishmentTicker + '/list');
             });
           }
 
