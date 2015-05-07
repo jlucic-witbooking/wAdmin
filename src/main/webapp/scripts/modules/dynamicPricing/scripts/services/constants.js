@@ -29,7 +29,8 @@ angular.module('bprApp')
     var BASE_URL= PROTOCOL+IP+":"+PORT+"/"+PATH;
     return {
       BASE_URL: BASE_URL,
-      BOOKING_PRICE_RULE_URL: BASE_URL+"/"+"bookingPriceRule"
+      //BOOKING_PRICE_RULE_URL: BASE_URL+"/"+"bookingPriceRule"
+      BOOKING_PRICE_RULE_URL: "/bookingPriceRule"
     }
   })())
   .constant('DEFAULT_DATE_PICKER_SETTINGS',{

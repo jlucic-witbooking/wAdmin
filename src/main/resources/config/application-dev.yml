@@ -54,3 +54,8 @@ cache:
     timeToLiveSeconds: 3600
     ehcache:
         maxBytesLocalHeap: 16M
+zuul:
+  routes:
+    resource:
+      path: /bookingPriceRule/**
+      url: http://api.dev.witbooker.com/bookingPriceRule
