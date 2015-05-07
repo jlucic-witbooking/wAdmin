@@ -1,0 +1,45 @@
+<h2>
+  <span translate>trans.contract</span>
+</h2>
+
+<div class="innerContent">
+
+  <h3>
+    <span translate>trans.dates</span>
+  </h3>
+  <div class="row " datetimerangepicker
+       ng-model="contractDateTimeRangeCondition"
+       timezone-model="contractDateTimeRangeCondition.timezone"
+       min-date="minDate"
+       show-weeks="showWeeks"
+       hour-step="hourStep"
+       minute-step="minuteStep"
+       show-meridian="showMeridian"
+       date-format="dd-MM-yyyy"
+       date-options="dateOptions"
+       readonly-time="false"
+       timezones="timezones">
+  </div>
+
+  <h3>
+    <span translate>trans.hours</span>
+  </h3>
+  <div class="row" timerangepicker
+       ng-model="contractHourRangeCondition"
+       show-meridian="false"
+       timezone-model="contractHourRangeCondition.timezone"
+       timezones="timezones">
+  </div>
+
+  <h3>
+    <span translate>trans.days</span>
+  </h3>
+  <div weekdaypicker
+       model="days.contractWeekDaysConditionDays"
+       week-days="weekDays"
+       class="row contractDaysRow row-sm-height">
+  </div>
+
+</div>
+
+

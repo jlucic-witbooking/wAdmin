@@ -9,23 +9,33 @@
 var placeholder;
 angular.module('bprApp')
   .controller('BookingpriceruleCtrl', ['$scope', '$filter', '$stateParams', 'BookingPriceRuleManager', 'BookingPriceRule', 'COUNTRIES', 'CONDITION_TYPE', 'CONDITION_CLASS', 'DEFAULT_DATE_PICKER_SETTINGS',
-    'DATE_TIME_FORMAT', 'TIMEZONES', 'DATE_TIME_FORMAT_NO_OFFSET', 'TIME_FORMAT', 'TIME_FORMAT_NO_OFFSET', 'WEEKDAYS', 'DATE_FORMAT', 'DEFAULT_LANGUAGE', '$window', '$location', '$timeout','timezoneDetection',
+    'DATE_TIME_FORMAT', 'TIMEZONES', 'DATE_TIME_FORMAT_NO_OFFSET', 'TIME_FORMAT', 'TIME_FORMAT_NO_OFFSET', 'WEEKDAYS', 'DATE_FORMAT', 'DEFAULT_LANGUAGE', '$window', '$location', '$timeout','timezoneDetection','$state',
+        'DYNAMIC_PRICING_TEMPLATE_LOCATION',
     function ($scope, $filter, $routeParams, BookingPriceRuleManager, BookingPriceRule, COUNTRIES, CONDITION_TYPE, CONDITION_CLASS, DEFAULT_DATE_PICKER_SETTINGS, DATE_TIME_FORMAT,
-              TIMEZONES, DATE_TIME_FORMAT_NO_OFFSET, TIME_FORMAT, TIME_FORMAT_NO_OFFSET, WEEKDAYS, DATE_FORMAT, DEFAULT_LANGUAGE, $window, $location, $timeout,timezoneDetection) {
-      $scope.tickerList = $window.tickerList;
+              TIMEZONES, DATE_TIME_FORMAT_NO_OFFSET, TIME_FORMAT, TIME_FORMAT_NO_OFFSET, WEEKDAYS, DATE_FORMAT, DEFAULT_LANGUAGE, $window, $location, $timeout,timezoneDetection,$state,
+        DYNAMIC_PRICING_TEMPLATE_LOCATION) {
+
       var establishmentTicker = $routeParams.establishmentTicker;
-      $scope.establishmentTicker = establishmentTicker;
-
-      $scope.timezones = timezoneDetection.namesMap;
-      $scope.contractEntryDate=null;
-      $scope.contractExitDate=null;
-
-
       var bookingPriceRuleID = $routeParams.id || null;
+      var defaultTimezone = timezoneDetection.currentTimezone();
+      $scope.DYNAMIC_PRICING_TEMPLATE_LOCATION=DYNAMIC_PRICING_TEMPLATE_LOCATION;
+      $scope.tickerList = $window.tickerList;
+      $scope.establishmentTicker = establishmentTicker;
+      $scope.timezones = timezoneDetection.namesMap;
+
+      $scope.$state = $state;
+
+      // Picker Config
+      $scope.showMeridian = false;
+      $scope.dateOptions = {};
+      $scope.dateOptions = {};
+      $scope.hourStep = 1;
+      $scope.minuteStep = 15;
+      //End Picker COnfig
+
 
       if (bookingPriceRuleID) {
-        BookingPriceRuleManager.get(establishmentTicker, bookingPriceRuleID)
-          .then(
+        BookingPriceRuleManager.get(establishmentTicker, bookingPriceRuleID).then(
           function (result) {
             initialize(result)
           }, function () {
@@ -35,6 +45,87 @@ angular.module('bprApp')
         initialize(null);
       }
 
+      function Condition(type,subtype) {
+        var newCondition = {
+          id: null,
+          conditionType: {},
+          type: type,
+          changed:false
+        };
+        if(subtype){
+          newCondition.conditionType[subtype] = true;
+        }
+        if( type === CONDITION_CLASS.DATE_TIME_RANGE ||  type === CONDITION_CLASS.HOUR_RANGE){
+          newCondition.start=null;
+          newCondition.end=null;
+          newCondition.timezone=defaultTimezone;
+          newCondition.timezone=defaultTimezone;
+          return newCondition;
+        }else if ( type === CONDITION_CLASS.WEEK_DAY){
+          newCondition.days = [];
+        }else if ( type === CONDITION_CLASS.COUNTRY_OF_ORIGIN){
+          newCondition.countries = [];
+        }else if ( type === CONDITION_CLASS.CODE){
+          newCondition.supportedCodes = [];
+        }else if ( type === CONDITION_CLASS.TICKER){
+          newCondition.dataValueHolderTickers = [];
+        }
+        return newCondition;
+      }
+
+      function getCondition(conditions,type,subtype) {
+        if (conditions[type]) {
+          var conditionsOfType = conditions[type];
+          if(  type === CONDITION_CLASS.COUNTRY_OF_ORIGIN
+            || type === CONDITION_CLASS.TICKER
+            || type === CONDITION_CLASS.CODE ){
+            return conditionsOfType[0];
+          }
+          if(subtype){
+            for (var i = 0; i < conditionsOfType.length; i++) {
+              if (conditionsOfType[i].conditionType[subtype]) {
+                return conditionsOfType[i];
+              }
+            }
+          }
+        }
+        return new Condition(type,subtype);
+      }
+
+      function getTimezoneByValue(value, timezones) {
+        return timezones[value];
+      }
+
+      function getTimezoneForCondition(condition,timezones){
+        return condition.timezone ? getTimezoneByValue(condition.timezone, timezones) : getTimezoneByValue(defaultTimezone, timezones);
+      }
+
+      function getDateFromCondition(condition,type,defaultTimezone,format){
+        return condition[type] && condition.timezone ? readDateTime(condition[type],condition.timezone,defaultTimezone,format) :null;
+      }
+
+
+      function readDateTime(dateString,timezoneIdentifier,userTimezoneIdentifier,format){
+        //This moment is converted from UTC to the rule stored Timezone
+        //var momentInOriginalTimezone=null;
+        //if(format){
+        //  momentInOriginalTimezone=moment(dateString,format).tz(timezoneIdentifier);
+        //}else{
+        //  momentInOriginalTimezone=moment(dateString).tz(timezoneIdentifier);
+        //}
+        //Using to array we strip the moment's timezone, and the format it with the browsers timezone,
+        //we must do this because pickers only take dates in the user's current timezone.
+        //return moment.tz(momentInOriginalTimezone.toArray(),userTimezoneIdentifier).toDate();
+        var dateStringToUTCStrippedOffset=null;
+        if(format){
+          dateStringToUTCStrippedOffset=moment(dateString,format).format("YYYY-MM-DDTHH:mm:ss.SSS");
+        }else{
+          dateStringToUTCStrippedOffset=moment(dateString).utc().format("YYYY-MM-DDTHH:mm:ss.SSS");
+        }
+        var currentBrowserTimezoneOffset=moment(new Date()).format("Z");
+        var dateStringInBrowserTimezone=dateStringToUTCStrippedOffset+currentBrowserTimezoneOffset;
+        return moment(dateStringInBrowserTimezone).toDate();
+      }
 
       function initialize(bookingPriceRule) {
         bookingPriceRule = bookingPriceRule ? bookingPriceRule : new BookingPriceRule();
@@ -48,17 +139,6 @@ angular.module('bprApp')
           lookupTimezones[TIMEZONES[i].value] = TIMEZONES[i];
         }
 
-        /*It would be much faster to calculate the offset between timezones and apply it to the new Date*/
-        var convertToUTC = function (value, offset) {
-          var sameTimeWithNewTimezone = moment(value).format(DATE_TIME_FORMAT_NO_OFFSET) + offset;
-          var dateObjectWithGivenTimezone = moment(sameTimeWithNewTimezone, DATE_TIME_FORMAT);
-          return dateObjectWithGivenTimezone.utc();
-        };
-
-        var convertFromUTC = function (value, offset) {
-          return moment(value, TIME_FORMAT).toDate();
-        };
-
         function setMinus(A, B) {
           var map = {}, C = [];
 
@@ -71,35 +151,6 @@ angular.module('bprApp')
           }
           return C;
         }
-
-        function getDefaultTimezone(offset, timezones) {
-          for (var i = 0; i < timezones.length; i++) {
-            if (timezones[i].offset === offset) {
-              return {index: i, timezone: timezones[i]};
-            }
-          }
-          return timezones[0];
-        }
-
-        function getTimezoneByValue(value, timezones) {
-          return timezones[value];
-        }
-
-        $scope.setter = function (property) {
-          if (property.indexOf(".") > 0) {
-            var objectProperties = property.split('.');
-            var caller = $scope;
-            for (var i = 0; i < objectProperties.length - 1; i++) {
-              caller = caller[objectProperties[i]];
-            }
-            return caller[objectProperties.length - 1 + "Setter"](caller[objectProperties.length - 1])
-          }
-          $scope[property + "Setter"]($scope[property]);
-        };
-
-        //var defaultTimezone = getDefaultTimezone(currentOffset, TIMEZONES);
-
-        var defaultTimezone = timezoneDetection.currentTimezone();
 
         var conditions = bookingPriceRule && bookingPriceRule.getConditionsMap() || false;
 
@@ -119,29 +170,12 @@ angular.module('bprApp')
 
         /****************** END TICKER GETTER SETTER***************************************/
 
-        /****************** PRIORITY GETTER SETTER***************************************/
-
-        $scope.priorities = {
-          HIGH: {id: 'HIGH', label: 'HIGH'},
-          MEDIUM: {id: 'MEDIUM', label: 'MEDIUM'},
-          LOW: {id: 'LOW', label: 'LOW'}
-        };
-
-        $scope.rulePriority = function (newValue) {
-          if (angular.isDefined(newValue)) {
-            bookingPriceRule.rulePriority = newValue.id;
-          }
-          return $scope.priorities[bookingPriceRule.rulePriority] || null;
-        };
-
-        /******************END PRIORITY GETTER SETTER************************************/
-
 
         /****************** PRICEVARIATION GETTER SETTER***************************************/
-        $scope.priceVariation = Math.abs(bookingPriceRule.priceVariation) || 0 ;
+        $scope.priceVariation = Math.abs(bookingPriceRule.priceVariation) || null ;
         $scope.setPriceVariation=function(priceVariation){
           var sign=$scope.sign().id === "POSITIVE" ? 1 : -1;
-          bookingPriceRule.priceVariation = parseFloat(priceVariation.replace(",","."))*sign;
+          bookingPriceRule.priceVariation = priceVariation*sign;
         };
 
         /******************END PRICEVARIATION GETTER SETTER************************************/
@@ -177,6 +211,8 @@ angular.module('bprApp')
         };
         /******************END PERCENTAGE GETTER SETTER***************************************/
 
+        $scope.conditions=[];
+
         /********************* COUNTRIES CONDITION GETTER SETTER***************************************/
 
         $scope.countries = COUNTRIES;
@@ -185,21 +221,18 @@ angular.module('bprApp')
           return setMinus(COUNTRIES, excludedCountries);
         };
         var _excludedCountries = [];
-        var _countryCondition = {
-          id: null,
-          conditionType: {},
-          type: CONDITION_CLASS.COUNTRY_OF_ORIGIN,
-          countries: []
-        };
+
+        var _countryCondition=getCondition(conditions,CONDITION_CLASS.COUNTRY_OF_ORIGIN)? getCondition(conditions,CONDITION_CLASS.COUNTRY_OF_ORIGIN) : null;
         _countryCondition.conditionType[CONDITION_TYPE.ALL] = true;
-        if (conditions[CONDITION_CLASS.COUNTRY_OF_ORIGIN]) {
-          _countryCondition = conditions[CONDITION_CLASS.COUNTRY_OF_ORIGIN][0];
-          if (conditions[CONDITION_CLASS.COUNTRY_OF_ORIGIN][0].conditionType[CONDITION_TYPE.INCLUDE]) {
-            _excludedCountries = getIncludedCountries(_countryCondition.countries);
-          } else if (conditions[CONDITION_CLASS.COUNTRY_OF_ORIGIN][0].conditionType[CONDITION_TYPE.EXCLUDE]) {
-            _excludedCountries = _countryCondition.countries;
-          }
+
+        $scope.conditions.push(_countryCondition);
+
+        if (_countryCondition && _countryCondition.conditionType[CONDITION_TYPE.INCLUDE]) {
+          _excludedCountries = getIncludedCountries(_countryCondition.countries);
+        } else if (_countryCondition && _countryCondition.conditionType[CONDITION_TYPE.EXCLUDE]) {
+          _excludedCountries = _countryCondition.countries;
         }
+
         $scope.excludedCountries = function (newValue) {
           if (angular.isDefined(newValue)) {
             _excludedCountries.length = 0;
@@ -220,7 +253,6 @@ angular.module('bprApp')
               _countryCondition.conditionType[CONDITION_TYPE.EXACT] = true;
               _countryCondition.countries = _excludedCountries;
             }
-            bookingPriceRule.addCondition(_countryCondition);
           }
           return _excludedCountries;
         };
@@ -228,474 +260,114 @@ angular.module('bprApp')
         /******************END COUNTRIES CONDITION GETTER SETTER***************************************/
 
 
-
-
         /********************* CONTRACT_DATE CONDITION GETTER SETTER***************************************/
-        /*
-         {
-         "start": "2013-01-01T00:00:00.000+01:00",
-         "end": "2014-01-01T00:00:00.000+01:00",
-         "timezone": "Europe/Madrid",
-         "id": 4,
-         "conditionType": {
-         "STAY": true
-         },
-         "type": "DatetimeRangeCondition"
-         },
-         $scope.toggle = function($event) {
-         $event.preventDefault();
-         $event.stopPropagation();
 
-         $scope.contractEntryDateOpen = true;
-         };
-
-         */
-        //DatePicker
- /*       if (!bookingPriceRule) {
-          $scope.rangeStartDatePickerOptions = angular.extend({}, DEFAULT_DATE_PICKER_SETTINGS, {
-            regional: locale,
-            minDate: 0
-          });
-          $scope.rangeEndDatePickerOptions = angular.extend({}, DEFAULT_DATE_PICKER_SETTINGS, {
-            regional: locale,
-            minDate: 1
-          });
-        } else {
-          $scope.rangeStartDatePickerOptions = angular.extend({}, DEFAULT_DATE_PICKER_SETTINGS, {regional: locale});
-          $scope.rangeEndDatePickerOptions = angular.extend({}, DEFAULT_DATE_PICKER_SETTINGS, {regional: locale});
-        }
-
-        $scope.rangeStartSet = function (startModel, endModel) {
-          var startDate = $scope.bookingPriceRuleForm[startModel].$viewValue;
-          var endDate = $scope.bookingPriceRuleForm[endModel].$viewValue;
-          var newEndModelMinDate = moment(startDate).add(1, 'days').toDate();
-          if (startDate >= endDate) {
-            $scope[endModel](newEndModelMinDate);
-          }
-          $scope.rangeEndDatePickerOptions.minDate = newEndModelMinDate;
-        };
-
-
-        $scope.rangeEndSet = function (startModel, endModel) {
-          var startDate = $scope.bookingPriceRuleForm[startModel].$viewValue;
-          var endDate = $scope.bookingPriceRuleForm[endModel].$viewValue;
-          var newStartModelMinDate = moment(startDate).add(-1, 'days').toDate();
-          if (startDate >= endDate) {
-            $scope[startModel](newStartModelMinDate);
-          }
-        };*/
-
-
-/*        $scope.toggle = function ($event, element) {
-          if (typeof $scope.datePickerStatus === "undefined") {
-            $scope.datePickerStatus = {}
-          }
-          if (typeof $scope.datePickerStatus[element] === "undefined") {
-            $scope.datePickerStatus[element] = false
-          }
-          $event.preventDefault();
-          $event.stopPropagation();
-          $scope.datePickerStatus[element] = !$scope.datePickerStatus[element];
-          angular.element('#' + element).datepicker($scope.datePickerStatus[element] ? 'show' : 'hide')
-        };*/
-
-
-
-
-/*        //We take the Entry Date as the beginning of the day for the given timezone
-        var _contractEntryDate = _contractDateTimeRangeCondition.start && _contractDateTimeRangeCondition.timezone ? moment(moment(_contractDateTimeRangeCondition.start).utcOffset(lookupTimezones[_contractDateTimeRangeCondition.timezone].offset).format(DATE_TIME_FORMAT_NO_OFFSET)).toDate() : null;
-        $scope.contractEntryDate = function (newValue) {
-          if (angular.isDefined(newValue)) {
-            _contractEntryDate = newValue;
-            _contractDateTimeRangeCondition.start = _contractEntryDate ? convertToUTC(_contractEntryDate, $scope.contractDateTimezone.offset).format(DATE_TIME_FORMAT) : null;
-            bookingPriceRule.addCondition(_contractDateTimeRangeCondition);
-          }
-          return _contractEntryDate;
-        };
+        var _contractDateTimeRangeCondition= $scope.contractDateTimeRangeCondition = getCondition(conditions,CONDITION_CLASS.DATE_TIME_RANGE,CONDITION_TYPE.CONTRACT);
+        //We take the Entry Date as the beginning of the day for the given timezone converted to the user's current timezone for it all to work accordingly, therefore, a Day 15 in timezone A which is
+        //Day 14 in the users default timezone, becomes Day 15 in timezone A.
+        _contractDateTimeRangeCondition.start= getDateFromCondition(_contractDateTimeRangeCondition,"start",defaultTimezone);
 
         //We take the Entry Date as the beginning of the day for the given timezone converted to the user's current timezone for it all to work accordingly, therefore, a Day 15 in timezone A which is
         //Day 14 in the users default timezone, becomes Day 15 in timezone A.
-        var _contractExitDate = _contractDateTimeRangeCondition.end && _contractDateTimeRangeCondition.timezone ? moment(moment(_contractDateTimeRangeCondition.end).utcOffset(lookupTimezones[_contractDateTimeRangeCondition.timezone].offset).format(DATE_TIME_FORMAT_NO_OFFSET)).toDate() : null;
-        $scope.contractExitDate = function (newValue) {
-          if (angular.isDefined(newValue)) {
-            _contractExitDate = moment(newValue).add(1, 'days').add(-1, 'ms').toDate();
-            _contractDateTimeRangeCondition.end = _contractExitDate ? convertToUTC(_contractExitDate, $scope.contractDateTimezone.offset).format(DATE_TIME_FORMAT) : null;
-            bookingPriceRule.addCondition(_contractDateTimeRangeCondition);
-          }
-          return _contractExitDate;
-        };
+        _contractDateTimeRangeCondition.end = getDateFromCondition(_contractDateTimeRangeCondition,"end",defaultTimezone);
 
-        $scope.timezones = TIMEZONES;
-        $scope.contractDateTimezone = _contractDateTimeRangeCondition.timezone ? getTimezoneByValue(_contractDateTimeRangeCondition.timezone, TIMEZONES) : defaultTimezone.timezone;
-        $scope.contractDateTimezoneSetter = function (value) {
-          _contractDateTimeRangeCondition.timezone = value.value;
-          if (_contractDateTimeRangeCondition.start) {
-            _contractDateTimeRangeCondition.start = convertToUTC($scope.contractEntryDate(), $scope.contractDateTimezone.offset).format(DATE_TIME_FORMAT);
-          }
-          if (_contractDateTimeRangeCondition.end) {
-            _contractDateTimeRangeCondition.end = convertToUTC($scope.contractExitDate(), $scope.contractDateTimezone.offset).format(DATE_TIME_FORMAT);
-          }
-          bookingPriceRule.addCondition(_contractDateTimeRangeCondition);
-        };*/
-
-
-        function getTimezoneForCondition(condition,timezones){
-          return condition.timezone ? getTimezoneByValue(condition.timezone, timezones) : getTimezoneByValue(defaultTimezone, timezones);
-        }
-
-        function getDateFromCondition(condition,type,defaultTimezone){
-          return condition[type] && condition.timezone ? readDateTime(condition[type],condition.timezone,defaultTimezone) :null;
-        }
-
-        function writeDateTime(dateObj,timezoneIdentifier){
-          // As the DatePickers only give Dates in the browsers timezone, I must
-          // strip the timezone part from the date string and concatenate the selected one
-          var dateStringStrippedOffset=moment(dateObj).format(DATE_TIME_FORMAT_NO_OFFSET);
-          return moment.tz(dateStringStrippedOffset,timezoneIdentifier).format(DATE_TIME_FORMAT);
-        }
-
-
-        function readDateTime(dateString,timezoneIdentifier,userTimezoneIdentifier){
-          //This moment is converted from UTC to the rule stored Timezone
-          var momentInOriginalTimezone=moment(dateString).tz(timezoneIdentifier);
-          //Using to array we strip the moment's timezone, and the format it with the browsers timezone,
-          //we must do this because pickers only take dates in the user's current timezone.
-          return moment.tz(momentInOriginalTimezone.toArray(),userTimezoneIdentifier).toDate();
-        }
-
-        // Picker Config
-        $scope.showMeridian = false;
-        $scope.dateOptions = {
-        };
-        $scope.hourStep = 1;
-        $scope.minuteStep = 15;
-        $scope.timeOptions = {
-          hourStep: [1, 2, 3],
-          minuteStep: [1, 5, 10, 15, 25, 30]
-        };
-        //End Picker COnfig
-
-        var _contractDateTimeRangeCondition = {
-          id: null,
-          start: null,
-          end: null,
-          timezone: defaultTimezone,
-          conditionType: {},
-          type: CONDITION_CLASS.DATE_TIME_RANGE
-        };
-        _contractDateTimeRangeCondition.conditionType[CONDITION_TYPE.CONTRACT] = true;
-
-        if (conditions[CONDITION_CLASS.DATE_TIME_RANGE]) {
-          for (var i = 0; i < conditions[CONDITION_CLASS.DATE_TIME_RANGE].length; i++) {
-            if (conditions[CONDITION_CLASS.DATE_TIME_RANGE][i].conditionType[CONDITION_TYPE.CONTRACT]) {
-              _contractDateTimeRangeCondition = conditions[CONDITION_CLASS.DATE_TIME_RANGE][i];
-              break;
-            }
-          }
-        }
-
-
-        //We take the Entry Date as the beginning of the day for the given timezone converted to the user's current timezone for it all to work accordingly, therefore, a Day 15 in timezone A which is
-        //Day 14 in the users default timezone, becomes Day 15 in timezone A.
-        $scope.contractEntryDate = getDateFromCondition(_contractDateTimeRangeCondition,"start",defaultTimezone);
-
-
-        //We take the Entry Date as the beginning of the day for the given timezone converted to the user's current timezone for it all to work accordingly, therefore, a Day 15 in timezone A which is
-        //Day 14 in the users default timezone, becomes Day 15 in timezone A.
-        $scope.contractExitDate = getDateFromCondition(_contractDateTimeRangeCondition,"end",defaultTimezone);
-
-        $scope.contractDateTimezone = getTimezoneForCondition(_contractDateTimeRangeCondition, $scope.timezones) ;
-
-
-
-
-
+        $scope.conditions.push(_contractDateTimeRangeCondition);
         /******************END CONTRACT_DATE CONDITION GETTER SETTER***************************************/
 
         /********************* CONTRACT_HOUR_RANGE CONDITION GETTER SETTER***************************************/
 
 
-        var _contractHourRangeCondition = {
-          id: null,
-          start: null,
-          end: null,
-          timezone: defaultTimezone,
-          conditionType: {},
-          type: CONDITION_CLASS.HOUR_RANGE
-        };
-        _contractHourRangeCondition.conditionType[CONDITION_TYPE.CONTRACT] = true;
+        var _contractHourRangeCondition= $scope.contractHourRangeCondition = getCondition(conditions,CONDITION_CLASS.HOUR_RANGE,CONDITION_TYPE.CONTRACT);
 
-        if (conditions[CONDITION_CLASS.HOUR_RANGE]) {
-          for (var i = 0; i < conditions[CONDITION_CLASS.HOUR_RANGE].length; i++) {
-            if (conditions[CONDITION_CLASS.HOUR_RANGE][i].conditionType[CONDITION_TYPE.CONTRACT]) {
-              _contractHourRangeCondition = conditions[CONDITION_CLASS.HOUR_RANGE][i];
-              break;
-            }
-          }
+        _contractHourRangeCondition.start=getDateFromCondition(_contractHourRangeCondition,"start",defaultTimezone,TIME_FORMAT_NO_OFFSET);
+        if(!_contractHourRangeCondition.start){
+          _contractHourRangeCondition.start = new Date();
+          _contractHourRangeCondition.start.setHours(0,0);
         }
 
+        _contractHourRangeCondition.end=getDateFromCondition(_contractHourRangeCondition,"end",defaultTimezone,TIME_FORMAT_NO_OFFSET);
+        if(!_contractHourRangeCondition.end){
+          _contractHourRangeCondition.end = new Date();
+          _contractHourRangeCondition.end.setHours(0,0);
+        }
 
-        $scope.contractHourRangeTimezone = getTimezoneForCondition(_contractHourRangeCondition, $scope.timezones) ;
+        $scope.conditions.push(_contractHourRangeCondition);
+
 
         /******************END CONTRACT_HOUR_RANGE CONDITION GETTER SETTER***************************************/
 
 
         /********************* CONTRACT WEEKDAY CONDITION GETTER SETTER***************************************/
-        /*
-         {
-         "days": [
-         "MONDAY",
-         "FRIDAY",
-         "TUESDAY"
-         ],
-         "id": 1,
-         "conditionType": {
-         "CONTRACT": true,
-         "INCLUDE": true
-         },
-         "type": "WeekDayCondition"
-         }
-         */
         $scope.days = {};
         $scope.weekDays = WEEKDAYS;
-        $scope.checkAll = function (property) {
-          /*Emptying array to keep reference*/
-          while ($scope.days[property].length) {
-            $scope.days[property].pop();
-          }
-          $scope.weekDays.map(function (item) {
-            $scope.days[property].push(item);
-          });
-          if (property.indexOf('contract') >= 0) {
-            bookingPriceRule.addCondition(_contractWeekDayCondition);
-          } else {
-            bookingPriceRule.addCondition(_stayWeekDayCondition);
-          }
-        };
-        $scope.uncheckAll = function (property) {
-          /*Emptying array to keep reference*/
-          while ($scope.days[property].length) {
-            $scope.days[property].pop();
-          }
-          bookingPriceRule.addCondition(_contractWeekDayCondition);
-          if (property.indexOf('contract') >= 0) {
-            bookingPriceRule.addCondition(_contractWeekDayCondition);
-          } else {
-            bookingPriceRule.addCondition(_stayWeekDayCondition);
-          }
-        };
 
-        var _contractWeekDayCondition = {
-          id: null,
-          days: [],
-          conditionType: {},
-          type: CONDITION_CLASS.WEEK_DAY
-        };
-        _contractWeekDayCondition.conditionType[CONDITION_TYPE.CONTRACT] = true;
+        var _contractWeekDayCondition=getCondition(conditions,CONDITION_CLASS.WEEK_DAY,CONDITION_TYPE.CONTRACT);
         _contractWeekDayCondition.conditionType[CONDITION_TYPE.INCLUDE] = true;
 
-        if (conditions[CONDITION_CLASS.WEEK_DAY]) {
-          for (var i = 0; i < conditions[CONDITION_CLASS.WEEK_DAY].length; i++) {
-            if (conditions[CONDITION_CLASS.WEEK_DAY][i].conditionType[CONDITION_TYPE.CONTRACT]) {
-              _contractWeekDayCondition = conditions[CONDITION_CLASS.WEEK_DAY][i];
-              break;
-            }
-          }
-        }
+        $scope.conditions.push(_contractWeekDayCondition);
 
         $scope.days.contractWeekDaysConditionDays = _contractWeekDayCondition.days;
-        $scope.$watch("days.contractWeekDaysConditionDays.length", function (newValue, oldValue) {
-          if (newValue === oldValue) {
-            return;
-          }
-          bookingPriceRule.addCondition(_contractWeekDayCondition);
-        });
+
         /******************END CONTRACT WEEKDAY CONDITION GETTER SETTER***************************************/
 
         /********************* STAY WEEKDAY CONDITION GETTER SETTER***************************************/
-        var _stayWeekDayCondition = {
-          id: null,
-          days: [],
-          conditionType: {},
-          type: CONDITION_CLASS.WEEK_DAY
-        };
-        _stayWeekDayCondition.conditionType[CONDITION_TYPE.STAY] = true;
+
+        var _stayWeekDayCondition=getCondition(conditions,CONDITION_CLASS.WEEK_DAY,CONDITION_TYPE.STAY);
         _stayWeekDayCondition.conditionType[CONDITION_TYPE.INCLUDE] = true;
-        if (conditions[CONDITION_CLASS.WEEK_DAY]) {
-          for (var i = 0; i < conditions[CONDITION_CLASS.WEEK_DAY].length; i++) {
-            if (conditions[CONDITION_CLASS.WEEK_DAY][i].conditionType[CONDITION_TYPE.STAY]) {
-              _stayWeekDayCondition = conditions[CONDITION_CLASS.WEEK_DAY][i];
-              break;
-            }
-          }
-        }
+        $scope.conditions.push(_stayWeekDayCondition);
+
         $scope.days.stayWeekDaysConditionDays = _stayWeekDayCondition.days;
-        $scope.$watch("days.stayWeekDaysConditionDays.length", function (newValue, oldValue) {
-          if (newValue === oldValue) {
-            return;
-          }
-          bookingPriceRule.addCondition(_stayWeekDayCondition);
-        });
 
         /******************END STAY WEEKDAY CONDITION GETTER SETTER***************************************/
 
 
         /********************* STAY_DATE CONDITION GETTER SETTER***************************************/
-
-        var _stayDateTimeRangeCondition = {
-          id: null,
-          start: null,
-          end: null,
-          timezone: defaultTimezone,
-          conditionType: {},
-          type: CONDITION_CLASS.DATE_TIME_RANGE
-        };
-        _stayDateTimeRangeCondition.conditionType[CONDITION_TYPE.STAY] = true;
-
-        if (conditions[CONDITION_CLASS.DATE_TIME_RANGE]) {
-          for (var i = 0; i < conditions[CONDITION_CLASS.DATE_TIME_RANGE].length; i++) {
-            if (conditions[CONDITION_CLASS.DATE_TIME_RANGE][i].conditionType[CONDITION_TYPE.STAY]) {
-              _stayDateTimeRangeCondition = conditions[CONDITION_CLASS.DATE_TIME_RANGE][i];
-              break;
-            }
-          }
-        }
-
-        $scope.stayEntryDate = getDateFromCondition(_stayDateTimeRangeCondition,"start",defaultTimezone);
-
-        $scope.stayExitDate = getDateFromCondition(_stayDateTimeRangeCondition,"end",defaultTimezone);
-
-        $scope.stayDateTimezone = getTimezoneForCondition(_stayDateTimeRangeCondition, $scope.timezones) ;
-
+        var _stayDateTimeRangeCondition= $scope.stayDateTimeRangeCondition = getCondition(conditions,CONDITION_CLASS.DATE_TIME_RANGE,CONDITION_TYPE.STAY);
+        _stayDateTimeRangeCondition.start= getDateFromCondition(_stayDateTimeRangeCondition,"start",defaultTimezone);
+        _stayDateTimeRangeCondition.end = getDateFromCondition(_stayDateTimeRangeCondition,"end",defaultTimezone);
+        $scope.conditions.push(_stayDateTimeRangeCondition);
         /******************END CONTRACT_DATE CONDITION GETTER SETTER***************************************/
 
         /********************* CODE CONDITION GETTER SETTER***************************************/
 
-        var _codeCondition = {
-          id: null,
-          supportedCodes: [],
-          conditionType: {},
-          type: CONDITION_CLASS.CODE
-        };
+        var _codeCondition=getCondition(conditions,CONDITION_CLASS.CODE);
         _codeCondition.conditionType[CONDITION_TYPE.EXACT] = true;
+        $scope.conditions.push(_codeCondition);
 
-        if (conditions[CONDITION_CLASS.CODE]) {
-          for (var i = 0; i < conditions[CONDITION_CLASS.CODE].length; i++) {
-            _codeCondition = conditions[CONDITION_CLASS.CODE][i];
-          }
-        }
         $scope.code = function (newValue) {
           if (angular.isDefined(newValue)) {
             _codeCondition.supportedCodes = newValue.split(',');
-            bookingPriceRule.addCondition(_codeCondition);
           }
           return _codeCondition.supportedCodes.join(',');
         };
 
         /******************END CODE CONDITION GETTER SETTER***************************************/
 
+        /******************START TICKER CONDITION GETTER SETTER***************************************/
 
-
-
-        var _tickerCondition = {
-          id: null,
-          dataValueHolderTickers: [],
-          conditionType: {},
-          type: CONDITION_CLASS.TICKER
-        };
+        var _tickerCondition=getCondition(conditions,CONDITION_CLASS.TICKER);
         _tickerCondition.conditionType[CONDITION_TYPE.EXACT] = true;
         _tickerCondition.conditionType[CONDITION_TYPE.INCLUDE] = true;
+        $scope.conditions.push(_tickerCondition);
 
-        if (conditions[CONDITION_CLASS.TICKER]) {
-          for (var i = 0; i < conditions[CONDITION_CLASS.TICKER].length; i++) {
-            _tickerCondition = conditions[CONDITION_CLASS.TICKER][i];
-            break;
-          }
-        }
-        $scope.tickers = {
-          dataValueHolderTickers: _tickerCondition.dataValueHolderTickers
-        };
+        $scope.tickers = { dataValueHolderTickers: _tickerCondition.dataValueHolderTickers };
 
-        $scope.$watch("tickers.dataValueHolderTickers.length", function (newValue, oldValue) {
-          if (newValue === oldValue) {
-            return;
-          }
-          bookingPriceRule.addCondition(_tickerCondition);
-        });
+        /******************END TICKER CONDITION GETTER SETTER***************************************/
 
         $scope.save = function () {
+          bookingPriceRule.conditions=[];
+          bookingPriceRule.clearConditions();
+          $scope.conditions.forEach(function(item){
+            bookingPriceRule.addCondition(item);
+          });
+
           if (bookingPriceRule.save()) {
             BookingPriceRuleManager.save(establishmentTicker, bookingPriceRule, function () {
               $location.path('bookingPriceRule/' + establishmentTicker + '/list');
             });
           }
+
         };
-
       }
-
-      $timeout(function () {
-        $timeout(function () {
-          $(document).ready(function () {
-            $("#checkallroomtypes").click(function () {
-              $('#tiposhabitacionasociados input:checkbox').each(function () {
-                var isChecked = $(this).prop('checked');
-                if (!isChecked) {
-                  $(this).trigger("click");
-                }
-              });
-              return false;
-            });
-            $("#uncheckallroomtypes").click(function () {
-              $('#tiposhabitacionasociados input:checkbox').each(function () {
-                var isChecked = $(this).prop('checked');
-                if (isChecked) {
-                  $(this).trigger("click");
-                }
-              });
-              return false;
-            });
-          });
-
-          $(function () {
-
-            $('.check').tooltip({title: 'marcar todos'});
-
-            $('.check').click(function (evt) {
-              evt.preventDefault();
-              $('.checkHover').each(function (j, span) {
-                var isChecked = $(span).parents('.checkbox').find('input:checkbox').prop('checked');
-                if (!isChecked) {
-                  $(span).parents('.checkbox').find('input:checkbox').trigger("click");
-                }
-              })
-            });
-
-            $('.check').hover(function () {
-              var filter = $(this).attr('filter');
-              $(this).addClass('checkHover')
-
-              var clickedText = $(this).text();
-              $(this).parents('#tiposhabitacionasociados').find('label > span').each(function (i, span) {
-                if ($(span).attr('filter') == filter
-                  && $(span).text() == clickedText) {
-                  $(span).addClass('checkHover')
-                }
-              })
-            }, function () {
-              var filter = $(this).attr('filter');
-              $(this).removeClass('checkHover')
-
-              var clickedText = $(this).text();
-
-              $(this).parents('#tiposhabitacionasociados').find('label > span').each(function (i, span) {
-                if ($(span).attr('filter') == filter
-                  && $(span).text() == clickedText) {
-                  $(span).removeClass('checkHover')
-                }
-              })
-            })
-          });
-        }, 0);
-      }, 0);
 
     }]);

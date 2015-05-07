@@ -12,4 +12,8 @@ angular.module('adminApp')
 
 .constant('APP_REQUIRES', {scripts:{modernizr:['vendor/modernizr/modernizr.js'],icons:['vendor/fontawesome/css/font-awesome.min.css','vendor/simple-line-icons/css/simple-line-icons.css']}})
 
+.constant('EVENTS', {CHANGED_BOOKING_ENGINE:'changed_booking_engine'})
+
+.constant('DYNAMIC_PRICING_TEMPLATE_LOCATION', 'scripts/modules/dynamicPricing/views/')
+
 ;

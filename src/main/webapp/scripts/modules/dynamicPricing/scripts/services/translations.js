@@ -54,8 +54,8 @@ angular.module('bprApp')
       'trans.selectAll': 'Todos',
       'trans.unselectAll': 'Ninguno',
       'trans.included': 'Incluidos',
-      'trans.excluded': 'Excluidos'
-
+      'trans.clear': 'Limpiar',
+      'trans.header.order.label': 'Orden'
     },
     'en': {
       'trans.modal.deleteRule.title' : 'Eliminar Regla',
@@ -94,7 +94,10 @@ angular.module('bprApp')
       'trans.back' : 'Volver',
       'trans.createNew' : 'Crear nuevo',
       'trans.header.edit.label': 'Editar',
-      'trans.header.delete.label': 'Eliminar'
+      'trans.header.delete.label': 'Eliminar',
+      'trans.clear': 'Limpiar',
+      'trans.header.order.label': 'Orden'
+
     }
   }
 

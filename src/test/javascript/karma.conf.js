@@ -42,8 +42,8 @@ module.exports = function (config) {
             'main/webapp/bower_components/jquery-ui/jquery-ui.js',
             'main/webapp/bower_components/angular-ui-sortable/sortable.js',
             'main/webapp/bower_components/moment/moment.js',
-            'main/webapp/bower_components/angular-ui-bootstrap-datetimepicker/datetimepicker.js',
             'main/webapp/bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js',
+            'main/webapp/bower_components/angular-messages/angular-messages.js',
             'main/webapp/bower_components/angular-mocks/angular-mocks.js',
             // endbower
             'main/webapp/scripts/app/app.js',

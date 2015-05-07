@@ -119,8 +119,9 @@ angular.module('adminApp')
             };
 
         }])
-    .controller('SidebarController', ['$rootScope', '$scope', '$state', '$http', '$timeout', 'Utils','SIDEBAR_CONTENTS',
-        function ($rootScope, $scope, $state, $http, $timeout, Utils,SIDEBAR_CONTENTS) {
+    .controller('SidebarController', ['$rootScope', '$scope', '$state', '$http', '$timeout', 'Utils','EVENTS','SIDEBAR_CONTENTS',
+        function ($rootScope, $scope, $state, $http, $timeout, Utils, EVENTS ,SIDEBAR_CONTENTS) {
+
 
             var collapseList = [];
 
@@ -130,6 +131,7 @@ angular.module('adminApp')
                     closeAllBut(-1);
                 }
             });
+
 
             // Check item and children active state
             var isActive = function (item) {
@@ -156,11 +158,10 @@ angular.module('adminApp')
             };
 
             $scope.loadSidebarMenu = function () {
-                $scope.menuItems = SIDEBAR_CONTENTS;
+                $scope.menuItems = SIDEBAR_CONTENTS.getSidebarContents();
             };
 
             $scope.loadSidebarMenu();
-
             // Handle sidebar collapse items
             // -----------------------------------
 
@@ -194,6 +195,11 @@ angular.module('adminApp')
                 return true;
 
             };
+
+            $rootScope.$on(EVENTS.CHANGED_BOOKING_ENGINE,function(event,data){
+                $scope.loadSidebarMenu();
+            });
+
 
             function closeAllBut(index) {
                 index += '';

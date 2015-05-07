@@ -8,7 +8,8 @@
  * Factory in the bprApp.
  */
 angular.module('bprApp')
-  .factory('BookingPriceRule',['CONDITION_CLASS','CONDITION_TYPE','COUNTRIES',  function(CONDITION_CLASS,CONDITION_TYPE,COUNTRIES) {
+  .factory('BookingPriceRule',['CONDITION_CLASS','CONDITION_TYPE','COUNTRIES','DATE_TIME_FORMAT_NO_OFFSET','DATE_TIME_FORMAT','TIMEZONE_OFFSET','TIME_FORMAT_NO_OFFSET',
+    function(CONDITION_CLASS,CONDITION_TYPE,COUNTRIES,DATE_TIME_FORMAT_NO_OFFSET,DATE_TIME_FORMAT,TIMEZONE_OFFSET,TIME_FORMAT_NO_OFFSET) {
 
     function BookingPriceRule(bookingPriceRuleData) {
       var _conditions={};
@@ -18,6 +19,18 @@ angular.module('bprApp')
       this.setConditionsMap=function(conditions){
         _conditions=conditions;
       };
+
+      this.writeDateTime=function(dateObj,timezoneIdentifier){
+        var dateStringStrippedOffset = moment(dateObj).format(DATE_TIME_FORMAT_NO_OFFSET);
+        var offset=moment.tz(new Date(),timezoneIdentifier).format(TIMEZONE_OFFSET);
+        return dateStringStrippedOffset+offset;
+      };
+
+      this.writeTime=function(dateObj,timezoneIdentifier){
+        return moment(dateObj).format(TIME_FORMAT_NO_OFFSET);
+      };
+
+
       if (bookingPriceRuleData) {
         this.setData(bookingPriceRuleData);
       }
@@ -38,42 +51,44 @@ angular.module('bprApp')
         }
       },
       isValid:function(){
-        return true ;
+        return true;
       },
-      addCondition:function(condition){
+      clearConditions:function(condition){
+        this.setConditionsMap({});
+      },
+      addCondition:function(originalCondition){
+        var condition=angular.copy(originalCondition);
+
         var validation=this.isConditionValid(condition);
+
         if(validation.error){
           return validation;
         }
+
         var ruleConditions=this.getConditionsMap();
-        var conditionTypeList=[];
-        if(!ruleConditions.hasOwnProperty(condition.type)
-          || condition.type===CONDITION_CLASS.TICKER
-          || condition.type===CONDITION_CLASS.COUNTRY_OF_ORIGIN
-          || condition.type===CONDITION_CLASS.CODE){
-          ruleConditions[condition.type]=conditionTypeList;
-        }else{
-          conditionTypeList=ruleConditions[condition.type];
+
+        if(!ruleConditions.hasOwnProperty(condition.type)){
+          ruleConditions[condition.type]=[];
         }
 
+        if(ruleConditions.hasOwnProperty(condition.type)){
 
-        var index=-1;
-        for(var i=0;i<conditionTypeList.length;i++){
-          if( condition.conditionType[CONDITION_TYPE.STAY] && conditionTypeList[i].conditionType[CONDITION_TYPE.STAY]){
-            index=i;
-            break;
-          }else if(condition.conditionType[CONDITION_TYPE.CONTRACT]  && conditionTypeList[i].conditionType[CONDITION_TYPE.CONTRACT]){
-            index=i;
-            break;
-          }else if(!conditionTypeList[i].conditionType[CONDITION_TYPE.CONTRACT] && !conditionTypeList[i].conditionType[CONDITION_TYPE.STAY]
-            && !condition.conditionType[CONDITION_TYPE.CONTRACT] && condition.conditionType[CONDITION_TYPE.STAY]){
-            index=0;
+          if(condition.type===CONDITION_CLASS.DATE_TIME_RANGE){
+            condition.start = this.writeDateTime(condition.start,"UTC",condition.timezone);
+            condition.end = this.writeDateTime(condition.end,"UTC",condition.timezone);
           }
+
+          if(condition.type===CONDITION_CLASS.HOUR_RANGE){
+            condition.start = this.writeTime(condition.start,"UTC",condition.timezone);
+            condition.end = this.writeTime(condition.end,"UTC",condition.timezone);
+          }
+
+          ruleConditions[condition.type].push(condition);
+
+          return true;
         }
-        if(index>=0){
-          conditionTypeList.splice(index,1);
-        }
-        conditionTypeList.push(condition);
+
+        return false;
       },
       isConditionValid:function(condition){
         if( !condition.hasOwnProperty("id") || !condition.hasOwnProperty("conditionType") || !condition.hasOwnProperty("type") ){
@@ -89,7 +104,7 @@ angular.module('bprApp')
           if (condition.countries.length===COUNTRIES.length && condition.conditionType[CONDITION_TYPE.EXCLUDE]) {
             return {error:true, message:"At least one country must be included", code:"NO_COUNTRY_POSSIBLE"};
           }
-        }else if(condition.type===CONDITION_CLASS.DATE_TIME_RANGE || condition.type===CONDITION_CLASS.HOUR_RANGE){
+        }else if(condition.type===CONDITION_CLASS.DATE_TIME_RANGE ){
           if (!condition.hasOwnProperty("start") || !condition.hasOwnProperty("end") || !condition.start || !condition.end ){
             return {error:true, message:"Invalid Range Condition", code:"INVALID_RANGE_CONDITION"};
           }
@@ -102,8 +117,25 @@ angular.module('bprApp')
           }
         }else if(condition.type===CONDITION_CLASS.CODE){
 
+          if (!condition.supportedCodes || condition.supportedCodes.length===0){
+            return {error:true, message:"At least one code must be included", code:"INVALID_CODE"};
+          }
+
         }else if(condition.type===CONDITION_CLASS.TICKER){
 
+          if (!condition.dataValueHolderTickers || condition.dataValueHolderTickers.length===0){
+            return {error:true, message:"At least one ticker must be included", code:"INVALID_TICKERS"};
+          }
+
+        }else if(condition.type===CONDITION_CLASS.HOUR_RANGE){
+
+          if (!condition.start || !condition.end){
+            return {error:true, message:"trans.invalidRange", code:"INVALID_RANGE"};
+          }
+
+          if (condition.start.getHours()===0 &&  condition.start.getMinutes()===0 && condition.end.getHours()===0 &&  condition.end.getMinutes()===0){
+            return {error:true, message:"trans.invalidRange", code:"INVALID_RANGE"};
+          }
 
         }else{
           return {error:true, message:"Invalid Condition Type", code:"INVALID_TYPE"};

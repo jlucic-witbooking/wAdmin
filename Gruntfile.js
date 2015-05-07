@@ -407,7 +407,11 @@ module.exports = function (grunt) {
                             'icons':              ['vendor/fontawesome/css/font-awesome.min.css',
                                 'vendor/simple-line-icons/css/simple-line-icons.css']
                         }
-                    }
+                    },
+                    EVENTS:{
+                        CHANGED_BOOKING_ENGINE:"changed_booking_engine"
+                    },
+                    DYNAMIC_PRICING_TEMPLATE_LOCATION:"scripts/modules/dynamicPricing/views/",
                 }
             },
             prod: {

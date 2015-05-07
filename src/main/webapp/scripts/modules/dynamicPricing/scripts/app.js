@@ -19,8 +19,7 @@ angular.module('bprApp', [
     'ngResource',
     'ui.bootstrap.datetimepicker'
 ])
-    .
-    config(['$translateProvider', 'SUPPORTED_LANGUAGES', 'DEFAULT_LANGUAGE', 'TRANSLATIONS', function ($translateProvider, SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE, TRANSLATIONS) {
+    .config(['$translateProvider', 'SUPPORTED_LANGUAGES', 'DEFAULT_LANGUAGE', 'TRANSLATIONS', function ($translateProvider, SUPPORTED_LANGUAGES, DEFAULT_LANGUAGE, TRANSLATIONS) {
         var locale = typeof LOCALE !== "undefined" ? LOCALE : DEFAULT_LANGUAGE;
         for (var i = 0; i < SUPPORTED_LANGUAGES.length; i++) {
             var language = SUPPORTED_LANGUAGES[i]; //es,en, etc.
@@ -28,8 +27,8 @@ angular.module('bprApp', [
         }
         $translateProvider.preferredLanguage(locale);
     }])
-
-    .config(function ($stateProvider) {
+    .constant('DYNAMIC_PRICING_TEMPLATE_LOCATION', 'scripts/modules/dynamicPricing/views/')
+    .config(function ($stateProvider,DYNAMIC_PRICING_TEMPLATE_LOCATION) {
         $stateProvider
             .state('newRule', {
                 parent: 'dynamicPricing',
@@ -39,9 +38,9 @@ angular.module('bprApp', [
                     pageTitle: 'adminApp.authorizedEstablishmentUser.home.title'
                 },
                 views: {
-                    'maini': {
-                        templateUrl: 'scripts/modules/dynamicPricing/views/bookingpricerule.html',
-                        controller: 'editRule'
+                    'moduleContent': {
+                        templateUrl: DYNAMIC_PRICING_TEMPLATE_LOCATION+'bookingpricerule.html',
+                        controller: 'BookingpriceruleCtrl'
                     }
                 },
                 resolve: {
@@ -59,8 +58,8 @@ angular.module('bprApp', [
                     pageTitle: 'adminApp.authorizedEstablishmentUser.home.title'
                 },
                 views: {
-                    'maini': {
-                        templateUrl: 'scripts/modules/dynamicPricing/views/bookingpricerulelist.html',
+                    'moduleContent': {
+                        templateUrl:  DYNAMIC_PRICING_TEMPLATE_LOCATION+'bookingpricerulelist.html',
                         controller: 'BookingpricerulelistCtrl'
                     }
                 },
@@ -79,8 +78,8 @@ angular.module('bprApp', [
                     pageTitle: 'adminApp.authorizedEstablishmentUser.home.title'
                 },
                 views: {
-                    'maini': {
-                        templateUrl: 'scripts/modules/dynamicPricing/views/bookingpricerule.html',
+                    'moduleContent': {
+                        templateUrl:  DYNAMIC_PRICING_TEMPLATE_LOCATION+'bookingpricerule.html',
                         controller: 'BookingpriceruleCtrl'
                     }
                 },

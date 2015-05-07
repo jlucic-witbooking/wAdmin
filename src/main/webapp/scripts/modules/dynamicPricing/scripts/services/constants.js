@@ -10,16 +10,23 @@
 angular.module('bprApp')
   .constant('API_CONFIG', (function() {
     var PROTOCOL = '//';
-    var IP = 'api.dev.witbooker.com';
+    var IP = 'api.witbooking.com';
     var PORT = '';
     var PATH = '';
-    var BASE_URL= PROTOCOL+IP+":"+PORT+"/"+PATH;
+/*
+
+    var PROTOCOL = 'http://';
+    var IP = 'localhost';
+    var PORT = '8080';
+    var PATH = 'WitBookerAPI-war/webresources';
+*/
 /*
     var IP = 'localhost';
     var PORT = '8080';
     var PATH = 'WitBookerAPI-war/webresources';
     var BASE_URL= PROTOCOL+IP+":"+PORT+"/"+PATH;
 */
+    var BASE_URL= PROTOCOL+IP+":"+PORT+"/"+PATH;
     return {
       BASE_URL: BASE_URL,
       BOOKING_PRICE_RULE_URL: BASE_URL+"/"+"bookingPriceRule"
@@ -29,10 +36,12 @@ angular.module('bprApp')
     regional: 'es',
     dateFormat: "dd-mm-yy"
   })
+  .constant('DYNAMIC_PRICING_TEMPLATE_LOCATION',"views/")
   .constant('SUPPORTED_LANGUAGES',["en","es"])
   .constant('DEFAULT_LANGUAGE',"es")
   .constant('DATE_FORMAT',"dd-mm-yy")
   .constant('DATE_TIME_FORMAT',"YYYY-MM-DDTHH:mm:ss.SSSZ")
+  .constant('TIMEZONE_OFFSET',"Z")
   .constant('DATE_TIME_FORMAT_NO_OFFSET',"YYYY-MM-DDTHH:mm:ss.SSS")
   .constant('TIME_FORMAT',"HH:mm:ss.SSSZ")
   .constant('TIME_FORMAT_NO_OFFSET',"HH:mm:ss.SSS")

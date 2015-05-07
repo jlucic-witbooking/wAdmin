@@ -1,0 +1,64 @@
+<h2>
+  <span translate>trans.field.name.label</span>
+</h2>
+
+<div class="innerContent">
+  <div class="row firstRow">
+    <div class="col-xs-12 col-sm-12 col-md-6 nameContainer">
+      <input type="text" class="form-control" id="name"
+             name="ticker"
+             ng-model="ticker"
+             ng-model-options="{ getterSetter: true , updateOn: 'blur'}"
+             ng-minlength="4"
+             ng-maxlength="20"
+             placeholder="{{ 'trans.field.name.placeholder' | translate }}" required>
+    </div>
+  </div>
+
+  <div ng-messages="bookingPriceRuleForm.ticker.$error"
+       ng-messages-include="error-messages"
+       class="errorMessagesContainer"
+       role="alert">
+  </div>
+</div>
+
+<h2>
+  <span translate>trans.field.variation.label</span>
+</h2>
+
+<div class="innerContent">
+
+  <div class="row firstRow">
+    <div class="col-xs-12 col-sm-12 col-md-12 variationContainer">
+      <div class="input-group">
+        <select class="form-control segmentedSelectWithInput"
+                ng-options="sign.label for sign in signs"
+                ng-model="sign"
+                name="sign"
+                ng-model-options="{ getterSetter: true }">
+        </select>
+        <input id="variation"
+               class="form-control segmentedSelectWithInput"
+               ng-model="priceVariation"
+               name="priceVariation"
+               ng-change="setPriceVariation(priceVariation)"
+               ng-pattern="/^[0-9]{1,7}(\.[0-9]+)?$/"
+               required>
+
+        <select class="form-control segmentedSelectWithInput"
+                ng-options="variationType.label for variationType in variationTypes"
+                ng-model="percentage"
+                name="percentage"
+                ng-model-options="{ getterSetter: true }">
+        </select>
+      </div>
+    </div>
+    <div ng-messages="bookingPriceRuleForm.priceVariation.$error"
+         ng-messages-include="error-messages"
+         class="errorMessagesContainer"
+         role="alert">
+      <div ng-message="pattern"><span>trans.invalidNumber</span></div>
+    </div>
+
+  </div>
+</div>

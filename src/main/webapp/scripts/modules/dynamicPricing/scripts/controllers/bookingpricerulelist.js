@@ -8,8 +8,12 @@
  */
 angular.module('bprApp')
 
-  .controller('BookingpricerulelistCtrl', ['$scope','$stateParams', 'BookingPriceRuleManager', '$modal', function ($scope,$routeParams, BookingPriceRuleManager, $modal) {
+  .controller('BookingpricerulelistCtrl', ['$scope','$stateParams', 'BookingPriceRuleManager', '$modal','$state', function ($scope,$routeParams, BookingPriceRuleManager, $modal,$state) {
+
+
     var establishmentTicker = $routeParams.establishmentTicker;
+
+    $scope.$state = $state;
 
     $scope.establishmentTicker = establishmentTicker;
 
@@ -18,7 +22,11 @@ angular.module('bprApp')
         var totalRules = $scope.bookingPriceRules.length;
         for (var index in $scope.bookingPriceRules) {
           var newOrder = totalRules - parseInt(index);
-          $scope.bookingPriceRules[index].order = newOrder * 100;
+          var bookingPriceRule = $scope.bookingPriceRules[index];
+          bookingPriceRule.order = newOrder*100;
+          BookingPriceRuleManager.save(establishmentTicker, bookingPriceRule,function(){
+            console.log("Save successful");
+          });
         }
       }
     };
