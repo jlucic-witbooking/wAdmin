@@ -1,0 +1,30 @@
+{
+    "adminApp": {
+        "frontEndMessage" : {
+            "home": {
+                "title": "FrontEndMessages",
+                "createLabel": "Créer un nouveau FrontEndMessage",
+                "createOrEditLabel": "Créer ou éditer un FrontEndMessage"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le FrontEndMessage {{ id }} ?"
+            },
+            "detail": {
+                "title": "FrontEndMessage"
+            },
+            "username": "Username",
+            "editedName": "EditedName",
+            "description": "Description",
+            "title": "Title",
+            "position": "Position",
+            "type": "Type",
+            "hidden": "Hidden",
+            "unavailable": "Unavailable",
+            "start": "Start",
+            "end": "End",
+            "creation": "Creation",
+            "lastModification": "LastModification"
+        }
+    }
+}
+

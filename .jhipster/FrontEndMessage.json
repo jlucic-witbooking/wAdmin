@@ -1,0 +1,145 @@
+{
+    "relationships": [],
+    "fields": [
+        {
+            "fieldId": 1,
+            "fieldName": "username",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Username",
+            "fieldNameUnderscored": "username",
+            "fieldInJavaBeanMethod": "Username",
+            "fieldValidate": true,
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "90"
+        },
+        {
+            "fieldId": 2,
+            "fieldName": "editedName",
+            "fieldType": "String",
+            "fieldNameCapitalized": "EditedName",
+            "fieldNameUnderscored": "edited_name",
+            "fieldInJavaBeanMethod": "EditedName",
+            "fieldValidate": true,
+            "fieldValidateRules": [
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "90"
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Description",
+            "fieldNameUnderscored": "description",
+            "fieldInJavaBeanMethod": "Description",
+            "fieldValidate": false
+        },
+        {
+            "fieldId": 4,
+            "fieldName": "title",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Title",
+            "fieldNameUnderscored": "title",
+            "fieldInJavaBeanMethod": "Title",
+            "fieldValidate": true,
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "100"
+        },
+        {
+            "fieldId": 5,
+            "fieldName": "position",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Position",
+            "fieldNameUnderscored": "position",
+            "fieldInJavaBeanMethod": "Position",
+            "fieldValidate": true,
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "100"
+        },
+        {
+            "fieldId": 6,
+            "fieldName": "type",
+            "fieldType": "String",
+            "fieldNameCapitalized": "Type",
+            "fieldNameUnderscored": "type",
+            "fieldInJavaBeanMethod": "Type",
+            "fieldValidate": true,
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "7"
+        },
+        {
+            "fieldId": 7,
+            "fieldName": "hidden",
+            "fieldType": "Boolean",
+            "fieldNameCapitalized": "Hidden",
+            "fieldNameUnderscored": "hidden",
+            "fieldInJavaBeanMethod": "Hidden",
+            "fieldValidate": false
+        },
+        {
+            "fieldId": 8,
+            "fieldName": "unavailable",
+            "fieldType": "Boolean",
+            "fieldNameCapitalized": "Unavailable",
+            "fieldNameUnderscored": "unavailable",
+            "fieldInJavaBeanMethod": "Unavailable",
+            "fieldValidate": false
+        },
+        {
+            "fieldId": 9,
+            "fieldName": "start",
+            "fieldType": "DateTime",
+            "fieldNameCapitalized": "Start",
+            "fieldNameUnderscored": "start",
+            "fieldInJavaBeanMethod": "Start",
+            "fieldValidate": false
+        },
+        {
+            "fieldId": 10,
+            "fieldName": "end",
+            "fieldType": "DateTime",
+            "fieldNameCapitalized": "End",
+            "fieldNameUnderscored": "end",
+            "fieldInJavaBeanMethod": "End",
+            "fieldValidate": false
+        },
+        {
+            "fieldId": 11,
+            "fieldName": "creation",
+            "fieldType": "DateTime",
+            "fieldNameCapitalized": "Creation",
+            "fieldNameUnderscored": "creation",
+            "fieldInJavaBeanMethod": "Creation",
+            "fieldValidate": false
+        },
+        {
+            "fieldId": 12,
+            "fieldName": "lastModification",
+            "fieldType": "DateTime",
+            "fieldNameCapitalized": "LastModification",
+            "fieldNameUnderscored": "last_modification",
+            "fieldInJavaBeanMethod": "LastModification",
+            "fieldValidate": false
+        }
+    ],
+    "fieldsContainOwnerManyToMany": false,
+    "fieldsContainOneToMany": false,
+    "fieldsContainLocalDate": false,
+    "fieldsContainCustomTime": true,
+    "fieldsContainBigDecimal": false,
+    "fieldsContainDateTime": true,
+    "fieldsContainDate": false,
+    "changelogDate": "20150515093618",
+    "pagination": "infinite-scroll",
+    "validation": true
+}

@@ -1,0 +1,118 @@
+
+<div>
+    <h2><span translate="adminApp.frontEndMessage.detail.title">FrontEndMessage</span> {{frontEndMessage.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th translate="entity.detail.field">Field</th>
+                    <th translate="entity.detail.value">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <span translate="adminApp.frontEndMessage.username">Username</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{frontEndMessage.username}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="adminApp.frontEndMessage.editedName">EditedName</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{frontEndMessage.editedName}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="adminApp.frontEndMessage.description">Description</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{frontEndMessage.description}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="adminApp.frontEndMessage.title">Title</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{frontEndMessage.title}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="adminApp.frontEndMessage.position">Position</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{frontEndMessage.position}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="adminApp.frontEndMessage.type">Type</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{frontEndMessage.type}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="adminApp.frontEndMessage.hidden">Hidden</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{frontEndMessage.hidden}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="adminApp.frontEndMessage.unavailable">Unavailable</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{frontEndMessage.unavailable}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="adminApp.frontEndMessage.start">Start</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{frontEndMessage.start}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="adminApp.frontEndMessage.end">End</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{frontEndMessage.end}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="adminApp.frontEndMessage.creation">Creation</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{frontEndMessage.creation}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span translate="adminApp.frontEndMessage.lastModification">LastModification</span>
+                    </td>
+                    <td>
+                        <input type="text" class="input-sm form-control" value="{{frontEndMessage.lastModification}}" readonly>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            ui-sref="frontEndMessage"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span translate="entity.action.back"> Back</span>
+    </button>
+</div>

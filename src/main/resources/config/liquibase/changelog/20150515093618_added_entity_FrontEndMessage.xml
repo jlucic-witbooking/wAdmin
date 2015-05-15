@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <property name="now" value="now()" dbms="mysql,h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <!--
+        Added the entity FrontEndMessage.
+    -->
+    <changeSet id="20150515093618" author="jhipster">
+        <createTable tableName="T_FRONTENDMESSAGE">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="username" type="varchar(90)">
+                <constraints nullable="false" />
+            </column>
+            <column name="edited_name" type="varchar(90)">
+                <constraints nullable="false" />
+            </column>
+            <column name="description" type="varchar(255)"/>
+            <column name="title" type="varchar(100)"/>
+            <column name="position" type="varchar(100)"/>
+            <column name="type" type="varchar(7)"/>
+            <column name="hidden" type="bit"/>
+            <column name="unavailable" type="bit"/>
+            <column name="start" type="timestamp"/>
+            <column name="end" type="timestamp"/>
+            <column name="creation" type="timestamp"/>
+            <column name="last_modification" type="timestamp"/>
+        </createTable>
+        <dropDefaultValue tableName="T_FRONTENDMESSAGE" columnName="start" columnDataType="datetime"/>
+
+        <dropDefaultValue tableName="T_FRONTENDMESSAGE" columnName="end" columnDataType="datetime"/>
+
+        <dropDefaultValue tableName="T_FRONTENDMESSAGE" columnName="creation" columnDataType="datetime"/>
+
+        <dropDefaultValue tableName="T_FRONTENDMESSAGE" columnName="last_modification" columnDataType="datetime"/>
+
+        
+    </changeSet>
+</databaseChangeLog>

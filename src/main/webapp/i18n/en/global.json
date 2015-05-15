@@ -11,6 +11,7 @@
                 "authorizedEstablishmentUser": "AuthorizedEstablishmentUser",
                 "right": "Right",
                 "authority": "Authority",
+                "frontEndMessage": "FrontEndMessage",
                 "additionalEntity": "JHipster will add addtional entities"
             },
             "account": {

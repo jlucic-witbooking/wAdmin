@@ -10,5 +10,6 @@
     <include file="classpath:config/liquibase/changelog/20150404093355_added_entity_AuthorizedEstablishmentUser.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20150404101617_added_entity_Right.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20150406120829_changelog.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20150515093618_added_entity_FrontEndMessage.xml" relativeToChangelogFile="false"/>
     <!-- JHipster will add liquibase changelogs here -->
 </databaseChangeLog>

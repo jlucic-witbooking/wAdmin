@@ -1,0 +1,234 @@
+<div>
+
+    <h2 translate="adminApp.frontEndMessage.home.title">FrontEndMessage</h2>
+
+    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveFrontEndMessageModal" ng-click="clear()">
+        <span class="glyphicon glyphicon-flash"></span> <span translate="adminApp.frontEndMessage.home.createLabel">Create a new FrontEndMessage</span>
+    </button>
+    <div class="modal fade" id="saveFrontEndMessageModal" tabindex="-1" role="dialog" aria-labelledby="myFrontEndMessageLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="editForm" role="form" novalidate ng-submit="create()" show-validation>
+
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" id="myFrontEndMessageLabel" translate="adminApp.frontEndMessage.home.createOrEditLabel">Create or edit a FrontEndMessage</h4>
+                    </div>
+                    <div class="modal-body">
+<!--
+                        <div class="form-group">
+                            <label>ID</label>
+                            <input type="text" class="form-control" name="id"
+                                   ng-model="frontEndMessage.id" readonly>
+                        </div>
+-->
+
+                        <div class="form-group">
+                            <label translate="adminApp.frontEndMessage.username">Username</label>
+                            <input type="text" class="form-control" name="username"
+                                   ng-model="frontEndMessage.username" required ng-maxlength="90">
+
+                            <div ng-show="editForm.username.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.username.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.username.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="90">
+                                    This field cannot be longer than 90 characters.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label translate="adminApp.frontEndMessage.editedName">EditedName</label>
+                            <input type="text" class="form-control" name="editedName"
+                                   ng-model="frontEndMessage.editedName" required ng-maxlength="90">
+
+                            <div ng-show="editForm.editedName.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.editedName.$error.required" translate="entity.validation.required">
+                                    This field is required.
+                                </p>
+                                <p class="help-block"
+                                   ng-show="editForm.editedName.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="90">
+                                    This field cannot be longer than 90 characters.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label translate="adminApp.frontEndMessage.description">Description</label>
+                            <input type="text" class="form-control" name="description"
+                                   ng-model="frontEndMessage.description">
+
+                        </div>
+                        <div class="form-group">
+                            <label translate="adminApp.frontEndMessage.title">Title</label>
+                            <input type="text" class="form-control" name="title"
+                                   ng-model="frontEndMessage.title" ng-maxlength="100">
+
+                            <div ng-show="editForm.title.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.title.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="100">
+                                    This field cannot be longer than 100 characters.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label translate="adminApp.frontEndMessage.position">Position</label>
+                            <input type="text" class="form-control" name="position"
+                                   ng-model="frontEndMessage.position" ng-maxlength="100">
+
+                            <div ng-show="editForm.position.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.position.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="100">
+                                    This field cannot be longer than 100 characters.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label translate="adminApp.frontEndMessage.type">Type</label>
+                            <input type="text" class="form-control" name="type"
+                                   ng-model="frontEndMessage.type" ng-maxlength="7">
+
+                            <div ng-show="editForm.type.$invalid">
+                                <p class="help-block"
+                                   ng-show="editForm.type.$error.maxlength" translate="entity.validation.maxlength" translate-value-max="7">
+                                    This field cannot be longer than 7 characters.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label translate="adminApp.frontEndMessage.hidden">Hidden</label>
+                            <input type="checkbox" class="form-control" name="hidden"
+                                   ng-model="frontEndMessage.hidden">
+
+                        </div>
+                        <div class="form-group">
+                            <label translate="adminApp.frontEndMessage.unavailable">Unavailable</label>
+                            <input type="checkbox" class="form-control" name="unavailable"
+                                   ng-model="frontEndMessage.unavailable">
+
+                        </div>
+                        <div class="form-group">
+                            <label translate="adminApp.frontEndMessage.start">Start</label>
+                            <input type="datetime-local" class="form-control" name="start"
+                                   ng-model="frontEndMessage.start" ng-model-options="{timezone: 'UTC'}">
+
+                        </div>
+                        <div class="form-group">
+                            <label translate="adminApp.frontEndMessage.end">End</label>
+                            <input type="datetime-local" class="form-control" name="end"
+                                   ng-model="frontEndMessage.end" ng-model-options="{timezone: 'UTC'}">
+
+                        </div>
+                        <div class="form-group">
+                            <label translate="adminApp.frontEndMessage.creation">Creation</label>
+                            <input type="datetime-local" class="form-control" name="creation"
+                                   ng-model="frontEndMessage.creation" ng-model-options="{timezone: 'UTC'}">
+
+                        </div>
+                        <div class="form-group">
+                            <label translate="adminApp.frontEndMessage.lastModification">LastModification</label>
+                            <input type="date" class="form-control" name="lastModification"
+                                   ng-model="frontEndMessage.lastModification" ng-model-options="{timezone: 'UTC'}">
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="editForm.$invalid" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-save"></span>&nbsp;<span translate="entity.action.save">Save</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteFrontEndMessageConfirmation">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form name="deleteForm" ng-submit="confirmDelete(frontEndMessage.id)">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                                ng-click="clear()">&times;</button>
+                        <h4 class="modal-title" translate="entity.delete.title">Confirm delete operation</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p translate="adminApp.frontEndMessage.delete.question" translate-values="{id: '{{frontEndMessage.id}}'}">Are you sure you want to delete this FrontEndMessage?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+                            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span translate="entity.action.cancel">Cancel</span>
+                        </button>
+                        <button type="submit" ng-disabled="deleteForm.$invalid" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th translate="adminApp.frontEndMessage.username">Username</th>
+                    <th translate="adminApp.frontEndMessage.editedName">EditedName</th>
+                    <th translate="adminApp.frontEndMessage.description">Description</th>
+                    <th translate="adminApp.frontEndMessage.title">Title</th>
+                    <th translate="adminApp.frontEndMessage.position">Position</th>
+                    <th translate="adminApp.frontEndMessage.type">Type</th>
+                    <th translate="adminApp.frontEndMessage.hidden">Hidden</th>
+                    <th translate="adminApp.frontEndMessage.unavailable">Unavailable</th>
+                    <th translate="adminApp.frontEndMessage.start">Start</th>
+                    <th translate="adminApp.frontEndMessage.end">End</th>
+                    <th translate="adminApp.frontEndMessage.creation">Creation</th>
+                    <th translate="adminApp.frontEndMessage.lastModification">LastModification</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody infinite-scroll="loadPage(page + 1)" infinite-scroll-disabled="links['last'] == page">
+                <tr ng-repeat="frontEndMessage in frontEndMessages">
+                    <td><a ui-sref="frontEndMessageDetail({id:frontEndMessage.id})">{{frontEndMessage.id}}</a></td>
+                    <td>{{frontEndMessage.username}}</td>
+                    <td>{{frontEndMessage.editedName}}</td>
+                    <td>{{frontEndMessage.description}}</td>
+                    <td>{{frontEndMessage.title}}</td>
+                    <td>{{frontEndMessage.position}}</td>
+                    <td>{{frontEndMessage.type}}</td>
+                    <td>{{frontEndMessage.hidden}}</td>
+                    <td>{{frontEndMessage.unavailable}}</td>
+                    <td>{{frontEndMessage.start}}</td>
+                    <td>{{frontEndMessage.end}}</td>
+                    <td>{{frontEndMessage.creation}}</td>
+                    <td>{{frontEndMessage.lastModification}}</td>
+                    <td>
+                        <button type="submit"
+                                ui-sref="frontEndMessageDetail({id:frontEndMessage.id})"
+                                class="btn btn-info">
+                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span translate="entity.action.view"> View</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="update(frontEndMessage.id)"
+                                class="btn btn-primary">
+                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span translate="entity.action.edit"> Edit</span>
+                        </button>
+                        <button type="submit"
+                                ng-click="delete(frontEndMessage.id)"
+                                class="btn btn-danger">
+                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span translate="entity.action.delete"> Delete</span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
