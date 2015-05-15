@@ -1,0 +1,12 @@
+.wrapper > section {
+    z-index: auto !important;
+}
+.modal-backdrop {
+    z-index: auto;
+}
+.glyphicon{
+    /*
+    font-family: 'Glyphicons Halflings' ;
+    */
+}
+

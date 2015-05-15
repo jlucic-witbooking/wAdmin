@@ -62,6 +62,15 @@ public class Authority implements Serializable {
         return false;
     }
 
+    public boolean hasRight(String testRight){
+        for (Right right : rights){
+            if(testRight.equals(right.getName())){
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {

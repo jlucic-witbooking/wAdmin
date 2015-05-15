@@ -14,9 +14,22 @@ public class RightGrantedAuthority implements GrantedAuthority {
 
     private Authority authority;
 
-    public boolean hasRight(Right right){
+    public boolean hasAuthority(String testAuthority){
+        return authority.getName().equals(testAuthority);
+    }
+
+    public boolean hasAuthority(Authority testAuthority){
+        return hasAuthority(testAuthority.getName());
+    }
+
+    public boolean hasRight(String right){
         return authority.hasRight(right);
     }
+
+    public boolean hasRight(Right right){
+        return hasRight(right.getName());
+    }
+
 
     public void setAuthority(Authority authority) {
         this.authority = authority;

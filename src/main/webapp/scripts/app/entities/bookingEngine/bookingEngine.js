@@ -5,13 +5,13 @@ angular.module('adminApp')
         $stateProvider
             .state('bookingEngine', {
                 parent: 'entity',
-                url: '/bookingEngine',
+                url: 'bookingEngine',
                 data: {
-                    roles: ['ROLE_USER'],
+                    roles: ['ROLE_USER','ROLE_ADMIN'],
                     pageTitle: 'adminApp.bookingEngine.home.title'
                 },
                 views: {
-                    'content@': {
+                    'content@layout': {
                         templateUrl: 'scripts/app/entities/bookingEngine/bookingEngines.html',
                         controller: 'BookingEngineController'
                     }
@@ -25,13 +25,13 @@ angular.module('adminApp')
             })
             .state('bookingEngineDetail', {
                 parent: 'entity',
-                url: '/bookingEngine/:id',
+                url: 'bookingEngine/:id',
                 data: {
-                    roles: ['ROLE_USER'],
+                    roles: ['ROLE_USER','ROLE_ADMIN'],
                     pageTitle: 'adminApp.bookingEngine.detail.title'
                 },
                 views: {
-                    'content@': {
+                    'content@layout': {
                         templateUrl: 'scripts/app/entities/bookingEngine/bookingEngine-detail.html',
                         controller: 'BookingEngineDetailController'
                     }
